@@ -1,0 +1,24 @@
+AD Jan. 1, 1 is   January  1,    1(    Monday)
+Today is  September 11, 2022(    Sunday)
+New year's day of this year was    January  1, 2022(  Saturday)
+Christmas of this year is   December 25, 2022(    Sunday)
+Sorry, today is not Christmas!
+You must wait 105 day(s) to Christmas !
+
+Person p1 : 
+Person [ name:   Hong, Gil-Dong, birth date:    January  1, 2000(    Friday)]
+Person p2 : 
+Person [ name: Lee, Soo - Jeong, birth date:  September  1, 2018(    Sunday)]
+
+Generating array of persons ... 
+Person [ name:        kjskcevtd, birth date:    January  4, 1907(  Saturday)]
+Person [ name:            codhd, birth date:   February 28, 1915(  Saturday)]
+Person [ name:   qdntbrfhblfvea, birth date:   November 18, 2004(    Monday)]
+Person [ name:            wgbwg, birth date:        May 19, 1918(    Friday)]
+Person [ name:    rykbkbmryybbj, birth date:   February  9, 1984(    Sunday)]
+Person [ name:           jcyaeo, birth date:   December  1, 1937( Wednesday)]
+Person [ name:      vektwfihdom, birth date:        May 26, 1914(    Monday)]
+Person [ name:      rabfvutvuzj, birth date:    January  2, 1920( Wednesday)]
+Person [ name:            dnlrj, birth date:   November 17, 1973(  Thursday)]
+Person [ name:            prucu, birth date:   November 22, 2006(    Sunday)]
+
