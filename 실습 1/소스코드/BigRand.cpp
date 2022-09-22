@@ -4,17 +4,17 @@
 #define BIG_SIZE 500
 #define LINESIZE 20
 
-// BigRand(32764 = RAND_MAX º¸´Ù ´õ Å« ³­¼ö)¸¦ ¸¸µå´Â ÇÔ¼ö
+// BigRand(32764 = RAND_MAX ë³´ë‹¤ ë” í° ë‚œìˆ˜)ë¥¼ ë§Œë“œëŠ” í•¨ìˆ˜
 int* genBigRandArray(int num_rands, int offset)	
 {
 	int* bigRand = NULL;									
 
-	bigRand = (int*)calloc(sizeof(int), num_rands);				// num_rands(»ý¼ºÇÒ ·£´ýÇÑ ¼ö °¹¼ö)¸¸Å­ µ¿ÀûÇÒ´ç 
+	bigRand = (int*)calloc( num_rands, sizeof(int));				// num_rands(ìƒì„±í•  ëžœë¤í•œ ìˆ˜ ê°¯ìˆ˜)ë§Œí¼ ë™ì í• ë‹¹ 
 
 	/* 
-				>> Áßº¹ÀÌ ¾ø´Â ·£´ýÇÑ ¼ö¸¦ »ý¼ºÇÏ±â ¶§¹®¿¡ ÀÌ·± ¹æ½Äµµ °¡´É <<
-		1. for¹®À» ÅëÇØ 0 ~ »ý¼ºÇÑ ¼ö ±îÁö 1¿­·Î Â÷·Ê´ë·Î ¹è¿­¿¡ Áý¾î³ÖÀ½
-		2. ±× ÈÄ, suffleÀ» ÅëÇØ ¼ø¼­¸¦ ¼¯¾î¹ö¸² 
+				>> ì¤‘ë³µì´ ì—†ëŠ” ëžœë¤í•œ ìˆ˜ë¥¼ ìƒì„±í•˜ê¸° ë•Œë¬¸ì— ì´ëŸ° ë°©ì‹ë„ ê°€ëŠ¥ <<
+		1. forë¬¸ì„ í†µí•´ 0 ~ ìƒì„±í•œ ìˆ˜ ê¹Œì§€ 1ì—´ë¡œ ì°¨ë¡€ëŒ€ë¡œ ë°°ì—´ì— ì§‘ì–´ë„£ìŒ
+		2. ê·¸ í›„, suffleì„ í†µí•´ ìˆœì„œë¥¼ ì„žì–´ë²„ë¦¼ 
 	*/
 	for (int i = 0; i < num_rands; i++)							
 	{															
@@ -22,40 +22,40 @@ int* genBigRandArray(int num_rands, int offset)
 	}
 	suffleArray(bigRand, num_rands);
 
-	return bigRand;												// bigRandÀÇ ¹è¿­ ÁÖ¼Ò¸¦ ¹ÝÈ¯, ÀÌ·¸°Ô µ¿ÀûÇÒ´çÇÑ ¹è¿­Àº ÀÌ¾îÁü
+	return bigRand;												// bigRandì˜ ë°°ì—´ ì£¼ì†Œë¥¼ ë°˜í™˜, ì´ë ‡ê²Œ ë™ì í• ë‹¹í•œ ë°°ì—´ì€ ì´ì–´ì§
 }
 
-// ¸¸µç ¹è¿­ÀÇ ¼ø¼­¸¦ µÚ¼¯´Â ÇÔ¼ö
+// ë§Œë“  ë°°ì—´ì˜ ìˆœì„œë¥¼ ë’¤ì„žëŠ” í•¨ìˆ˜
 void suffleArray(int* bigRand, int num_rands)
 {
 	int i1, i2, temp, i = 0;
-	RANDOMIZE();												// ·£´ý ½Ãµå »ý¼º
+	RANDOMIZE();												// ëžœë¤ ì‹œë“œ ìƒì„±
 
-	while (i != num_rands)										// i°¡ ³­¼ö °³¼ö±îÁö
+	while (i != num_rands)										// iê°€ ë‚œìˆ˜ ê°œìˆ˜ê¹Œì§€
 	{
-		// ¹Ù²Ü ¼ýÀÚ¸¦ 2°³ ¼±Á¤ÇÔ. ¼±Á¤Àº RANDÇÔ¼ö·Î °áÁ¤
+		// ë°”ê¿€ ìˆ«ìžë¥¼ 2ê°œ ì„ ì •í•¨. ì„ ì •ì€ RANDí•¨ìˆ˜ë¡œ ê²°ì •
 		i1 = (((unsigned int)rand() << 15) | rand()) % num_rands;
 		i2 = (((unsigned int)rand() << 15) | rand()) % num_rands;
 
-		// swapping, ¹Ù²Ü¶§´Â temp°°Àº ºó º¯¼ö ÇÏ³ª°¡ ÇÊ¿äÇÔ
+		// swapping, ë°”ê¿€ë•ŒëŠ” tempê°™ì€ ë¹ˆ ë³€ìˆ˜ í•˜ë‚˜ê°€ í•„ìš”í•¨
 		temp = bigRand[i1];
 		bigRand[i1] = bigRand[i2];
 		bigRand[i2] = temp;
 		
-		i++;													// i Áõ°¡
+		i++;													// i ì¦ê°€
 	}
 }
 
-// BigRand¹è¿­À» ÆÄÀÏÃâ·ÂÇÏ´Â ÇÔ¼ö
+// BigRandë°°ì—´ì„ íŒŒì¼ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
 void fPrintBigRandArray(ofstream& fout, int* bigRand, int num_rands)
 {
-	int count = 0;												// Ãâ·ÂÇÒ ¶§ ÇÊ¿äÇÔ
-	int num_lines = 5;											// Áß°£ »ý·«ÇÒ ½Ã, ¸îÁÙ¸¸ Ãâ·ÂÇÏ°Ô ÇÏ´Â°¡¿¡ ÇÊ¿ä
+	int count = 0;												// ì¶œë ¥í•  ë•Œ í•„ìš”í•¨
+	int num_lines = 5;											// ì¤‘ê°„ ìƒëžµí•  ì‹œ, ëª‡ì¤„ë§Œ ì¶œë ¥í•˜ê²Œ í•˜ëŠ”ê°€ì— í•„ìš”
 
-	/*				>>> Ãâ·Â ¹æ½Ä <<<
-		1. num_rands(³­¼öÀÇ °³¼ö)¿¡ µû¶ó Ãâ·Â¹æ½ÄÀ» °áÁ¤ÇÑ´Ù. 
-		2. BIG_SIZEº¸´Ù ÀûÀ» °æ¿ì, »ý·«¾øÀÌ Ãâ·Â
-		3. BIG_SIZEº¸´Ù ¸¹À» °æ¿ì, Ã³À½ 50°³ Ãâ·ÂÇÏ°í ³ª¼­ Áß°£ »ý·« ÈÄ, ³¡¿¡ ÇÑ¹ø´õ 50°³ Ãâ·Â
+	/*				>>> ì¶œë ¥ ë°©ì‹ <<<
+		1. num_rands(ë‚œìˆ˜ì˜ ê°œìˆ˜)ì— ë”°ë¼ ì¶œë ¥ë°©ì‹ì„ ê²°ì •í•œë‹¤. 
+		2. BIG_SIZEë³´ë‹¤ ì ì„ ê²½ìš°, ìƒëžµì—†ì´ ì¶œë ¥
+		3. BIG_SIZEë³´ë‹¤ ë§Žì„ ê²½ìš°, ì²˜ìŒ 50ê°œ ì¶œë ¥í•˜ê³  ë‚˜ì„œ ì¤‘ê°„ ìƒëžµ í›„, ëì— í•œë²ˆë” 50ê°œ ì¶œë ¥
 	*/
 
 	if (num_rands < BIG_SIZE)
@@ -67,28 +67,28 @@ void fPrintBigRandArray(ofstream& fout, int* bigRand, int num_rands)
 	{
 		for (int j = 0; j < LINESIZE; j++)
 		{
-			if (count == num_rands)								// ÀüºÎ Ãâ·ÂÇßÀ¸¸é Å»Ãâ
+			if (count == num_rands)								// ì „ë¶€ ì¶œë ¥í–ˆìœ¼ë©´ íƒˆì¶œ
 				break;
-			fout << setw(7) << bigRand[count] ;					// Ãâ·Â, ÀÚ¸®¼ö¸¦ 7·Î ÁöÁ¤ÇØ, 7ÀÚ¸®
+			fout << setw(7) << bigRand[count] ;					// ì¶œë ¥, ìžë¦¬ìˆ˜ë¥¼ 7ë¡œ ì§€ì •í•´, 7ìžë¦¬
 			count++;
 		}
-		fout << endl;											// 10°³ Ãâ·Â ÈÄ ¿£ÅÍ
+		fout << endl;											// 10ê°œ ì¶œë ¥ í›„ ì—”í„°
 	}
 
-	// ·£´ýÇÑ ¼ö°¡ BIG_SIZEº¸´Ù ´õ Å« °æ¿ì, »ý·« ÈÄ, Ãâ·ÂÇÑ´Ù.
+	// ëžœë¤í•œ ìˆ˜ê°€ BIG_SIZEë³´ë‹¤ ë” í° ê²½ìš°, ìƒëžµ í›„, ì¶œë ¥í•œë‹¤.
 	if (num_rands >= BIG_SIZE)
 	{
-		fout << ". . . . . . . ." << endl;						// »ý·«ÇÏ´Â °Í
+		fout << ". . . . . . . ." << endl;						// ìƒëžµí•˜ëŠ” ê²ƒ
 		count = num_rands - (LINESIZE * num_lines);
 
 		for (int i = 0; i < num_lines; i++)
 		{
 			for (int j = 0; j < LINESIZE; j++)
 			{
-				fout << setw(7) << bigRand[count];				// Ãâ·Â
+				fout << setw(7) << bigRand[count];				// ì¶œë ¥
 				count++;
 			}
-			fout << endl;										// ÇÑÁÙ ¶ç¿ì±â
+			fout << endl;										// í•œì¤„ ë„ìš°ê¸°
 		}
 		fout << endl;
 	}
