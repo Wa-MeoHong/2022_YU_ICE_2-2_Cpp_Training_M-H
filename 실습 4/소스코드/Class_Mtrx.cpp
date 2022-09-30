@@ -12,18 +12,18 @@ ostream& operator<<(ostream& output, const Mtrx& m)						// 출력 연산자 오버로드
 	const char a1 = 0xa1, a2 = 0xa2, a3 = 0xa3, a4 = 0xa4, a5 = 0xa5, a6 = 0xa6;
 	//확장형 문자코드 : ( ─ : a6a1, │ : a6a2, ┌ : a6a3, ┐ : a6a4, ┘ : a6a5, └ : a6a6 )
 
-	output << m.name << " = " << endl;
-	for (int i = 0; i < m.n_row; i++)
+	output << m.Name() << " = " << endl;
+	for (int i = 0; i < m.row(); i++)
 	{
-		for (int k = 0; k < m.n_col; k++)
+		for (int k = 0; k < m.col(); k++)
 		{
 
 			// 대괄호 출력부분 ( 앞줄 [ )
 			if (i == 0 && k == 0)
 				output << a6 << a3;										// ┌
-			else if (i > 0 && i < m.n_row - 1 && k == 0)
+			else if (i > 0 && i < m.row() - 1 && k == 0)
 				output << a6 << a2;										// │
-			else if (i == m.n_row - 1 && k == 0)
+			else if (i == m.row() - 1 && k == 0)
 				output << a6 << a6;										// └
 
 			output.setf(ios::fixed);  output.setf(ios::showpoint);
@@ -32,11 +32,11 @@ ostream& operator<<(ostream& output, const Mtrx& m)						// 출력 연산자 오버로드
 
 
 			// 대괄호 출력부분 ( 뒷줄 ] )
-			if (i == 0 && k == m.n_col - 1)
+			if (i == 0 && k == m.col() - 1)
 				output << a6 << a4;										// ┐
-			else if (i > 0 && i < m.n_row - 1 && k == m.n_col - 1)
+			else if (i > 0 && i < m.row() - 1 && k == m.col() - 1)
 				output << a6 << a2;										// │
-			else if (i == m.n_row - 1 && k == m.n_col - 1)
+			else if (i == m.row() - 1 && k == m.col() - 1)
 				output << a6 << a5;										// ┘
 		}
 		output << endl;
@@ -44,7 +44,7 @@ ostream& operator<<(ostream& output, const Mtrx& m)						// 출력 연산자 오버로드
 
 	return output;
 }
-istream& operator>>(istream& input, Mtrx& m)						// 입력 연산자 오버로드 ( 입력 포맷 지정 )
+istream& operator>>(istream& input,  Mtrx& m)						// 입력 연산자 오버로드 ( 입력 포맷 지정 )
 {
 	input >> m.n_row >> m.n_col;									// 입력을 받음 ( 열, 행 순서 ) 
 	m.init(m.row(), m.col());										// 입력받은 행 열 데이터로 초기값 생성
@@ -232,5 +232,4 @@ bool Mtrx::operator!=(const Mtrx& mM)
 		else
 			return false;										// 아니면 false (모두같음)
 	}
-
 }
