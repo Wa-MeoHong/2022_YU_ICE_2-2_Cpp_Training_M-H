@@ -1,16 +1,16 @@
 #include "Class_Mtrx.h"
 #include <iostream>
 #include <iomanip>
-
+ 
 using namespace std;
 
-/*					Çà·Ä ÀÔÃâ·Â ¿À¹ö·Îµù
-		1. Ãâ·Â ¿¬»êÀÚ << ¿À¹ö·Îµå ( Çà·Ä Ãâ·Â Æ÷¸Ë ÁöÁ¤ )
-		2. ÀÔ·Â ¿¬»êÀÚ >> ¿À¹ö·Îµå ( Çà·Ä ÀÔ·Â Æ÷¸Ë ÁöÁ¤ )			*/
-ostream& operator<<(ostream& output, const Mtrx& m)						// Ãâ·Â ¿¬»êÀÚ ¿À¹ö·Îµå ( Ãâ·Â Æ÷¸Ë ÁöÁ¤ )
+/*					í–‰ë ¬ ì…ì¶œë ¥ ì˜¤ë²„ë¡œë”©
+		1. ì¶œë ¥ ì—°ì‚°ì << ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ ì¶œë ¥ í¬ë§· ì§€ì • )
+		2. ì…ë ¥ ì—°ì‚°ì >> ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ ì…ë ¥ í¬ë§· ì§€ì • )			*/
+ostream& operator<<(ostream& output, const Mtrx& m)						// ì¶œë ¥ ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ ( ì¶œë ¥ í¬ë§· ì§€ì • )
 {
 	const char a1 = 0xa1, a2 = 0xa2, a3 = 0xa3, a4 = 0xa4, a5 = 0xa5, a6 = 0xa6;
-	//È®ÀåÇü ¹®ÀÚÄÚµå : ( ¦¡ : a6a1, ¦¢ : a6a2, ¦£ : a6a3, ¦¤ : a6a4, ¦¥ : a6a5, ¦¦ : a6a6 )
+	//í™•ì¥í˜• ë¬¸ìì½”ë“œ : ( â”€ : a6a1, â”‚ : a6a2, â”Œ : a6a3, â” : a6a4, â”˜ : a6a5, â”” : a6a6 )
 
 	output << m.Name() << " = " << endl;
 	for (int i = 0; i < m.row(); i++)
@@ -18,36 +18,36 @@ ostream& operator<<(ostream& output, const Mtrx& m)						// Ãâ·Â ¿¬»êÀÚ ¿À¹ö·Îµå
 		for (int k = 0; k < m.col(); k++)
 		{
 
-			// ´ë°ıÈ£ Ãâ·ÂºÎºĞ ( ¾ÕÁÙ [ )
+			// ëŒ€ê´„í˜¸ ì¶œë ¥ë¶€ë¶„ ( ì•ì¤„ [ )
 			if (i == 0 && k == 0)
-				output << a6 << a3;										// ¦£
+				output << a6 << a3;										// â”Œ
 			else if (i > 0 && i < m.row() - 1 && k == 0)
-				output << a6 << a2;										// ¦¢
+				output << a6 << a2;										// â”‚
 			else if (i == m.row() - 1 && k == 0)
-				output << a6 << a6;										// ¦¦
+				output << a6 << a6;										// â””
 
 			output.setf(ios::fixed);  output.setf(ios::showpoint);
 			output << setw(8); output.precision(2);
-			output << m.dMtrx[i][k];						// ¼ıÀÚ Ãâ·ÂºÎºĞ
+			output << m.dMtrx[i][k];						// ìˆ«ì ì¶œë ¥ë¶€ë¶„
 
 
-			// ´ë°ıÈ£ Ãâ·ÂºÎºĞ ( µŞÁÙ ] )
+			// ëŒ€ê´„í˜¸ ì¶œë ¥ë¶€ë¶„ ( ë’·ì¤„ ] )
 			if (i == 0 && k == m.col() - 1)
-				output << a6 << a4;										// ¦¤
+				output << a6 << a4;										// â”
 			else if (i > 0 && i < m.row() - 1 && k == m.col() - 1)
-				output << a6 << a2;										// ¦¢
+				output << a6 << a2;										// â”‚
 			else if (i == m.row() - 1 && k == m.col() - 1)
-				output << a6 << a5;										// ¦¥
+				output << a6 << a5;										// â”˜
 		}
 		output << endl;
 	}
 
 	return output;
 }
-istream& operator>>(istream& input,  Mtrx& m)						// ÀÔ·Â ¿¬»êÀÚ ¿À¹ö·Îµå ( ÀÔ·Â Æ÷¸Ë ÁöÁ¤ )
+istream& operator>>(istream& input,  Mtrx& m)						// ì…ë ¥ ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ ( ì…ë ¥ í¬ë§· ì§€ì • )
 {
-	input >> m.n_row >> m.n_col;									// ÀÔ·ÂÀ» ¹ŞÀ½ ( ¿­, Çà ¼ø¼­ ) 
-	m.init(m.row(), m.col());										// ÀÔ·Â¹ŞÀº Çà ¿­ µ¥ÀÌÅÍ·Î ÃÊ±â°ª »ı¼º
+	input >> m.n_row >> m.n_col;									// ì…ë ¥ì„ ë°›ìŒ ( ì—´, í–‰ ìˆœì„œ ) 
+	m.init(m.row(), m.col());										// ì…ë ¥ë°›ì€ í–‰ ì—´ ë°ì´í„°ë¡œ ì´ˆê¸°ê°’ ìƒì„±
 
 	for (int i = 0; i < m.row(); i++)
 	{
@@ -57,51 +57,51 @@ istream& operator>>(istream& input,  Mtrx& m)						// ÀÔ·Â ¿¬»êÀÚ ¿À¹ö·Îµå ( ÀÔ·
 	return input;
 }
 
-/*					Çà·Ä »ı¼ºÀÚ, ¼Ò¸êÀÚ
-		1. Çà·Ä »ı¼ºÀÚ 1 ( ¾Æ¹«·± µ¥ÀÌÅÍ°¡ ¾øÀ» ½Ã )
-		2. Çà·Ä »ı¼ºÀÚ 2 ( ÀÌ¸§, Çà, ¿­¸¸ Á¸ÀçÇÒ ½Ã)
-		3. Çà·Ä »ı¼ºÀÚ 3 ( ÀÌ¸§, Çà, ¿­, Çà·Ä µ¥ÀÌÅÍ°¡ ¸ğµÎ Á¸ÀçÇÒ ½Ã)
-		4. Çà·Ä ¼Ò‘lÀÚ ( ÇÔ¼ö°¡ ³¡³ª´Â µîÀÇ ¼Ò¸êÀÌ ÀÌ·ç¾îÁú ¶§)			*/
-Mtrx::Mtrx()													// constructor ( »ı¼ºÀÚ ) 1, ¾Æ¹«°Íµµ ¾øÀ»¶§ 
+/*					í–‰ë ¬ ìƒì„±ì, ì†Œë©¸ì
+		1. í–‰ë ¬ ìƒì„±ì 1 ( ì•„ë¬´ëŸ° ë°ì´í„°ê°€ ì—†ì„ ì‹œ )
+		2. í–‰ë ¬ ìƒì„±ì 2 ( ì´ë¦„, í–‰, ì—´ë§Œ ì¡´ì¬í•  ì‹œ)
+		3. í–‰ë ¬ ìƒì„±ì 3 ( ì´ë¦„, í–‰, ì—´, í–‰ë ¬ ë°ì´í„°ê°€ ëª¨ë‘ ì¡´ì¬í•  ì‹œ)
+		4. í–‰ë ¬ ì†ŒÂ‘lì ( í•¨ìˆ˜ê°€ ëë‚˜ëŠ” ë“±ì˜ ì†Œë©¸ì´ ì´ë£¨ì–´ì§ˆ ë•Œ)			*/
+Mtrx::Mtrx()													// constructor ( ìƒì„±ì ) 1, ì•„ë¬´ê²ƒë„ ì—†ì„ë•Œ 
 {
 	n_col = 0;
 	n_row = 0;
 	name = " ";
 	dMtrx = NULL;
 }
-Mtrx::Mtrx(string nm, int num_row, int num_col)							// »ı¼ºÀÚ 2, Çà, ¿­, ÀÌ¸§¸¸ ÀÖÀ» ‹š
+Mtrx::Mtrx(string nm, int num_row, int num_col)							// ìƒì„±ì 2, í–‰, ì—´, ì´ë¦„ë§Œ ìˆì„ Â‹Âš
 	: n_row(num_row), n_col(num_col), name(nm)
 {
 	init(n_row, n_col);
 }
-Mtrx::Mtrx(string nm, double* pA, int num_row, int num_col)			// »ı¼ºÀÚ3 , Çà, ¿­, ÀÌ¸§, µ¥ÀÌÅÍ°¡ ¸ğµÎ ÀÖÀ»¶§
-	: n_row(num_row), n_col(num_col), name(nm)						// ¸ÕÀú ÀÌ¸§, Çà, ¿­Àº ÀüºÎ ´ëÀÔ½ÃÄÑ¹ö¸®°í ½ÃÀÛ
+Mtrx::Mtrx(string nm, double* pA, int num_row, int num_col)			// ìƒì„±ì3 , í–‰, ì—´, ì´ë¦„, ë°ì´í„°ê°€ ëª¨ë‘ ìˆì„ë•Œ
+	: n_row(num_row), n_col(num_col), name(nm)						// ë¨¼ì € ì´ë¦„, í–‰, ì—´ì€ ì „ë¶€ ëŒ€ì…ì‹œì¼œë²„ë¦¬ê³  ì‹œì‘
 {
-	init(n_row, n_col);												// ÃÊ±âÈ­µÈ Çà·Ä Å¬·¡½º °´Ã¼¿¡ Çà·ÄÀ» µ¿ÀûÇÒ´ç
+	init(n_row, n_col);												// ì´ˆê¸°í™”ëœ í–‰ë ¬ í´ë˜ìŠ¤ ê°ì²´ì— í–‰ë ¬ì„ ë™ì í• ë‹¹
 	for (int j = 0; j < n_row; j++)
 	{
 		for (int k = 0; k < n_col; k++)
-			dMtrx[j][k] = pA[j * num_row + k];						// Çà·Ä¿¡  pA µ¥ÀÌÅÍ ´ëÀÔ
+			dMtrx[j][k] = pA[j * num_row + k];						// í–‰ë ¬ì—  pA ë°ì´í„° ëŒ€ì…
 	}
 }
-Mtrx::~Mtrx()									// destructor ( ¼Ò¸êÀÚ ) 
+Mtrx::~Mtrx()									// destructor ( ì†Œë©¸ì ) 
 {
 	//for (int i = 0; i < n_row; i++)
 	//{
-	//	delete[] dMtrx[i];						// delete ¿¬»êÀÚ¸¦ ÅëÇØ µ¿ÀûÇÒ´çÇÑ ¹è¿­À» ÇØÁ¦
+	//	delete[] dMtrx[i];						// delete ì—°ì‚°ìë¥¼ í†µí•´ ë™ì í• ë‹¹í•œ ë°°ì—´ì„ í•´ì œ
 	//}
-	//delete[] dMtrx;							// ¶ÇÇÑ¹ø delete¸¦ ÅëÇÑ µ¿ÀûÇÒ´ç ÇØÁ¦
+	//delete[] dMtrx;							// ë˜í•œë²ˆ deleteë¥¼ í†µí•œ ë™ì í• ë‹¹ í•´ì œ
 }
 
-/*						¿¬»êÀÚ ¿À¹ö·Îµå
-		1. init() ( ÃÊ±âÈ­µÈ Çà·Ä¿¡ °ªÀ» ¹Ş¾Æ¼­ »ı¼ºÇÔ )
-		2. + ¿À¹ö·Îµå ( Çà·Ä µ¡¼À )
-		3. - ¿À¹ö·Îµå ( Çà·Ä –E¼À )
-		4. * ¿À¹ö·Îµå ( Çà·Ä °ö¼À )
-		5. ~ ¿À¹ö·Îµå ( ÀüÄ¡Çà·Ä )
-		6. = ¿À¹ö·Îµå ( Çà·Ä ´ëÀÔ )
-		6. == ¿À¹ö·Îµå ( Çà·Ä ÀÏÄ¡ÇÏ´ÂÁö ºñ±³ )
-		6. != ¿À¹ö·Îµå ( Çà·Ä ´Ù¸¥Áö ºñ±³ )					*/
+/*						ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ
+		1. init() ( ì´ˆê¸°í™”ëœ í–‰ë ¬ì— ê°’ì„ ë°›ì•„ì„œ ìƒì„±í•¨ )
+		2. + ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ ë§ì…ˆ )
+		3. - ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ Â–Eì…ˆ )
+		4. * ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ ê³±ì…ˆ )
+		5. ~ ì˜¤ë²„ë¡œë“œ ( ì „ì¹˜í–‰ë ¬ )
+		6. = ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ ëŒ€ì… )
+		6. == ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ ì¼ì¹˜í•˜ëŠ”ì§€ ë¹„êµ )
+		6. != ì˜¤ë²„ë¡œë“œ ( í–‰ë ¬ ë‹¤ë¥¸ì§€ ë¹„êµ )					*/
 void Mtrx::init(int num_row, int num_col)
 {
 	n_row = num_row; n_col = num_col;
@@ -115,14 +115,14 @@ void Mtrx::init(int num_row, int num_col)
 			dMtrx[j][k] = 0.0;
 	}
 }
-const Mtrx Mtrx::operator+(const Mtrx& mM)						// µ¡¼À ¿¬»êÀÚ ¿À¹ö·Îµå
+const Mtrx Mtrx::operator+(const Mtrx& mM)						// ë§ì…ˆ ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ
 {
 	Mtrx mR;
 
 	mR.init(this->row(), this->col());
-	mR.NameSetting("Add Mtrx");									// ÀÌ¸§ ÁöÁ¤
+	mR.NameSetting("Add Mtrx");									// ì´ë¦„ ì§€ì •
 
-	for (int i = 0; i < this->row(); i++)								// Çà·Ä µ¡¼À ÁøÇà
+	for (int i = 0; i < this->row(); i++)								// í–‰ë ¬ ë§ì…ˆ ì§„í–‰
 	{
 		for (int j = 0; j < this->col(); j++)
 			mR.dMtrx[i][j] = this->dMtrx[i][j] + mM.dMtrx[i][j];
@@ -130,34 +130,34 @@ const Mtrx Mtrx::operator+(const Mtrx& mM)						// µ¡¼À ¿¬»êÀÚ ¿À¹ö·Îµå
 
 	return mR;
 }
-const Mtrx Mtrx::operator-(const Mtrx& mM)						// »¬¼À ¿¬»êÀÚ ¿À¹ö·Îµå
+const Mtrx Mtrx::operator-(const Mtrx& mM)						// ëº„ì…ˆ ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ
 {
-	Mtrx mR;													// °á°ú Çà·Ä »ı¼º
+	Mtrx mR;													// ê²°ê³¼ í–‰ë ¬ ìƒì„±
 	mR.init(this->row(), this->col());
-	mR.NameSetting("Sub Mtrx");									// ÀÌ¸§ ÁöÁ¤
+	mR.NameSetting("Sub Mtrx");									// ì´ë¦„ ì§€ì •
 
 	for (int i = 0; i < this->row(); i++)
 	{
 		for (int j = 0; j < this->col(); j++)
-			mR.dMtrx[i][j] = this->dMtrx[i][j] - mM.dMtrx[i][j];		// Çà·Ä »¬¼À ÁøÇà
+			mR.dMtrx[i][j] = this->dMtrx[i][j] - mM.dMtrx[i][j];		// í–‰ë ¬ ëº„ì…ˆ ì§„í–‰
 	}
 
 	return mR;
 }
-const Mtrx Mtrx::operator*(const Mtrx& mM)						// °ö¼À ¿¬»êÀÚ ¿À¹ö·Îµå
+const Mtrx Mtrx::operator*(const Mtrx& mM)						// ê³±ì…ˆ ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ
 {
 	int row_SIZE, col_SIZE, SIZE_k;
-	row_SIZE = this->row(); col_SIZE = mM.col(); SIZE_k = mM.row();	// °á°ú¸¦ ´ã´Â Çà·ÄÀÇ Çà, ¿­µ¥ÀÌÅÍ 
+	row_SIZE = this->row(); col_SIZE = mM.col(); SIZE_k = mM.row();	// ê²°ê³¼ë¥¼ ë‹´ëŠ” í–‰ë ¬ì˜ í–‰, ì—´ë°ì´í„° 
 
-	Mtrx mR;													// Çà, ¿­ µ¥ÀÌÅÍ¸¦ °¡Áö°í Çà·Ä »ı¼º
+	Mtrx mR;													// í–‰, ì—´ ë°ì´í„°ë¥¼ ê°€ì§€ê³  í–‰ë ¬ ìƒì„±
 	mR.init(row_SIZE, col_SIZE);
-	mR.NameSetting("Mul Mtrx");									// ÀÌ¸§ ¼³Á¤
+	mR.NameSetting("Mul Mtrx");									// ì´ë¦„ ì„¤ì •
 
-	for (int i = 0; i < row_SIZE; i++)							// Çà ÀüÈ¯
+	for (int i = 0; i < row_SIZE; i++)							// í–‰ ì „í™˜
 	{
-		for (int j = 0; j < col_SIZE; j++)						// ¿­ ÀüÈ¯
+		for (int j = 0; j < col_SIZE; j++)						// ì—´ ì „í™˜
 		{
-			for (int k = 0; k < SIZE_k; k++)					// ÀÎ¼ö¸¦ °öÇÑ°Íµé µ¡¼ÀÇÏ±â
+			for (int k = 0; k < SIZE_k; k++)					// ì¸ìˆ˜ë¥¼ ê³±í•œê²ƒë“¤ ë§ì…ˆí•˜ê¸°
 			{
 				mR.dMtrx[i][j] += this->dMtrx[i][k] * mM.dMtrx[k][j];
 			}
@@ -166,70 +166,70 @@ const Mtrx Mtrx::operator*(const Mtrx& mM)						// °ö¼À ¿¬»êÀÚ ¿À¹ö·Îµå
 
 	return mR;
 }
-const Mtrx Mtrx::operator~()									// ~ ¿¬»êÀÚ ¿À¹ö·Îµå (ÀüÄ¡Çà·Ä)
+const Mtrx Mtrx::operator~()									// ~ ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ (ì „ì¹˜í–‰ë ¬)
 {
-	Mtrx mT;													// ÀüÄ¡Çà·Ä¿ë Çà·Ä »ı¼º
-	mT.init(this->col(), this->row());							// Çà°ú ¿­ÀÌ ¹Ù²ñ
+	Mtrx mT;													// ì „ì¹˜í–‰ë ¬ìš© í–‰ë ¬ ìƒì„±
+	mT.init(this->col(), this->row());							// í–‰ê³¼ ì—´ì´ ë°”ë€œ
 	mT.NameSetting("Transpose Matrix");
 
 	for (int i = 0; i < this->col(); i++)
 	{
 		for (int j = 0; j < this->row(); j++)
-			mT.dMtrx[i][j] = this->dMtrx[j][i];					// Çà°ú ¿­À» ´Ù¸£°ÔÇØ¼­ ³ÖÀ½
+			mT.dMtrx[i][j] = this->dMtrx[j][i];					// í–‰ê³¼ ì—´ì„ ë‹¤ë¥´ê²Œí•´ì„œ ë„£ìŒ
 	}
 	return mT;
 }
-const Mtrx& Mtrx::operator=(const Mtrx& mM)						// ´ëÀÔ ¿¬»êÀÚ ¿À¹ö·Îµå
+const Mtrx& Mtrx::operator=(const Mtrx& mM)						// ëŒ€ì… ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ
 {
-	init(mM.row(), mM.col());									// ÃÊ±â°ª ¼³Á¤
+	init(mM.row(), mM.col());									// ì´ˆê¸°ê°’ ì„¤ì •
 
 	for (int i = 0; i < mM.row(); i++)
 		for (int j = 0; j < mM.col(); j++)
-			this->dMtrx[i][j] = mM.dMtrx[i][j];					// Çà·Ä ´ëÀÔ
+			this->dMtrx[i][j] = mM.dMtrx[i][j];					// í–‰ë ¬ ëŒ€ì…
 
-	return *this;												// º»ÀÎÀ» ¹İÈ¯
+	return *this;												// ë³¸ì¸ì„ ë°˜í™˜
 }
-bool Mtrx::operator==(const Mtrx& mM)							// Çà·ÄÀÌ ÀÏÄ¡ÇÏ´ÂÁö °è»ê
+bool Mtrx::operator==(const Mtrx& mM)							// í–‰ë ¬ì´ ì¼ì¹˜í•˜ëŠ”ì§€ ê³„ì‚°
 {
-	int equalcount = 0;											// Çà·Ä³»ÀÇ ¸ğµç µ¥ÀÌÅÍ°¡ ÀÏÄ¡ÇØ¾ßÇÏ¹Ç·Î Ä«¿îÆ®¸¦ ¼¾´Ù
+	int equalcount = 0;											// í–‰ë ¬ë‚´ì˜ ëª¨ë“  ë°ì´í„°ê°€ ì¼ì¹˜í•´ì•¼í•˜ë¯€ë¡œ ì¹´ìš´íŠ¸ë¥¼ ì„¼ë‹¤
 
-	if (this->n_row == mM.n_row && this->n_col == mM.n_col)		// Çà, ¿­ÀÌ ÀÏÄ¡ÇÏ´Ù¸é
+	if (this->n_row == mM.n_row && this->n_col == mM.n_col)		// í–‰, ì—´ì´ ì¼ì¹˜í•˜ë‹¤ë©´
 	{
 		for (int i = 0; i < n_row; i++)
 		{
 			for (int j = 0; j < n_col; j++)
 			{
-				if (this->dMtrx[i][j] == mM.dMtrx[i][j])		// Çà·Ä µ¥ÀÌÅÍ¸¦ ÇÏ³ªÇÏ³ª ¸ğµÎ ´ëÁ¶ÇØ °°ÀºÁö È®ÀÎÇÑ´Ù.
-					equalcount++;								// °°À¸¸é equalcount¸¦ ÇÏ³ª¾¿ ¾÷ÇÑ´Ù.
+				if (this->dMtrx[i][j] == mM.dMtrx[i][j])		// í–‰ë ¬ ë°ì´í„°ë¥¼ í•˜ë‚˜í•˜ë‚˜ ëª¨ë‘ ëŒ€ì¡°í•´ ê°™ì€ì§€ í™•ì¸í•œë‹¤.
+					equalcount++;								// ê°™ìœ¼ë©´ equalcountë¥¼ í•˜ë‚˜ì”© ì—…í•œë‹¤.
 			}
 		}
-		if (equalcount == n_row * n_col)						// ¸¸¾à equalcount°¡ Çà·ÄÀÇ µ¥ÀÌÅÍÀÇ °¹¼ö¿Í °°´Ù¸é ¿ÏÀü ÀÏÄ¡
+		if (equalcount == n_row * n_col)						// ë§Œì•½ equalcountê°€ í–‰ë ¬ì˜ ë°ì´í„°ì˜ ê°¯ìˆ˜ì™€ ê°™ë‹¤ë©´ ì™„ì „ ì¼ì¹˜
 			return true;
 		else
-			return false;										// ¾Æ´Ï¸é false
+			return false;										// ì•„ë‹ˆë©´ false
 	}
 	else
-		return false;											// Çà°ú ¿­ÀÌ °°Áö ¾Ê¾Æµµ false
+		return false;											// í–‰ê³¼ ì—´ì´ ê°™ì§€ ì•Šì•„ë„ false
 }
 bool Mtrx::operator!=(const Mtrx& mM)
 {
 	int equalcount = 0;
 
-	if (this->n_row != mM.n_row || this->n_col != mM.n_col)		// Çà°ú ¿­ÀÌ °°Áö ¾Ê´Ù¸é true
+	if (this->n_row != mM.n_row || this->n_col != mM.n_col)		// í–‰ê³¼ ì—´ì´ ê°™ì§€ ì•Šë‹¤ë©´ true
 		return true;
 	else
-	{															// ¸¸¾à °°´Ù¸é 
+	{															// ë§Œì•½ ê°™ë‹¤ë©´ 
 		for (int i = 0; i < n_row; i++)
 		{
 			for (int j = 0; j < n_col; j++)
 			{
-				if (this->dMtrx[i][j] == mM.dMtrx[i][j])		// Çà·Ä ³»ÀÇ µ¥ÀÌÅÍ°¡ °°ÀºÁö Ä«¿îÆ®¸¦ ¼¾´Ù
+				if (this->dMtrx[i][j] == mM.dMtrx[i][j])		// í–‰ë ¬ ë‚´ì˜ ë°ì´í„°ê°€ ê°™ì€ì§€ ì¹´ìš´íŠ¸ë¥¼ ì„¼ë‹¤
 					equalcount++;
 			}
 		}
-		if (equalcount != n_row * n_col)						// equalcount°¡ Çà·Ä µ¥ÀÌÅÍ °³¼ö°¡ ¾Æ´Ï¶ó¸é true(¸ğµÎ °°Áö ¾ÊÀ½)
+		if (equalcount != n_row * n_col)						// equalcountê°€ í–‰ë ¬ ë°ì´í„° ê°œìˆ˜ê°€ ì•„ë‹ˆë¼ë©´ true(ëª¨ë‘ ê°™ì§€ ì•ŠìŒ)
 			return true;
 		else
-			return false;										// ¾Æ´Ï¸é false (¸ğµÎ°°À½)
+			return false;										// ì•„ë‹ˆë©´ false (ëª¨ë‘ê°™ìŒ)
 	}
 }
