@@ -1,0 +1,66 @@
+Initializing Students Array ( NUM_students : 10)
+StudentArray (size : 10)
+Student[ st_id :  31669, name :    Oaaer, Dept :    AHN, birth date : (2046- 3- 5), GPA :  89.66
+Student[ st_id :  28490, name :   Vfppky, Dept :    VDC, birth date : (2069- 7- 5), GPA :  27.99
+Student[ st_id :  42617, name :   Afprmz, Dept :   HVJE, birth date : (2064- 9-22), GPA :  98.88
+Student[ st_id :  46989, name :    Modlb, Dept :   FULV, birth date : (2071- 2- 8), GPA :  53.85
+Student[ st_id :  25422, name :   Xdpago, Dept :    YLQ, birth date : (2065- 1-28), GPA :  49.91
+Student[ st_id :  16676, name :  Xedobqq, Dept :    KEJ, birth date : (2014- 4-20), GPA :  65.85
+Student[ st_id :  12581, name :     Bjiz, Dept :    XNK, birth date : (2041- 9-25), GPA :  60.89
+Student[ st_id :  28145, name :  Fdjahgo, Dept :    DUS, birth date : (2058- 5-30), GPA :  59.24
+Student[ st_id :  41220, name :     Smfi, Dept :   XLGF, birth date : (2013-11-26), GPA :  50.21
+Student[ st_id :  22135, name :   Yjqypf, Dept :    NMZ, birth date : (2040- 1-10), GPA :  91.27
+
+Sorting Student Array by ST_id: 
+StudentArray (size : 10)
+Student[ st_id :  12581, name :     Bjiz, Dept :    XNK, birth date : (2041- 9-25), GPA :  60.89
+Student[ st_id :  16676, name :  Xedobqq, Dept :    KEJ, birth date : (2014- 4-20), GPA :  65.85
+Student[ st_id :  22135, name :   Yjqypf, Dept :    NMZ, birth date : (2040- 1-10), GPA :  91.27
+Student[ st_id :  25422, name :   Xdpago, Dept :    YLQ, birth date : (2065- 1-28), GPA :  49.91
+Student[ st_id :  28145, name :  Fdjahgo, Dept :    DUS, birth date : (2058- 5-30), GPA :  59.24
+Student[ st_id :  28490, name :   Vfppky, Dept :    VDC, birth date : (2069- 7- 5), GPA :  27.99
+Student[ st_id :  31669, name :    Oaaer, Dept :    AHN, birth date : (2046- 3- 5), GPA :  89.66
+Student[ st_id :  41220, name :     Smfi, Dept :   XLGF, birth date : (2013-11-26), GPA :  50.21
+Student[ st_id :  42617, name :   Afprmz, Dept :   HVJE, birth date : (2064- 9-22), GPA :  98.88
+Student[ st_id :  46989, name :    Modlb, Dept :   FULV, birth date : (2071- 2- 8), GPA :  53.85
+
+Sorting Student Array by Student Name: 
+StudentArray (size : 10)
+Student[ st_id :  42617, name :   Afprmz, Dept :   HVJE, birth date : (2064- 9-22), GPA :  98.88
+Student[ st_id :  12581, name :     Bjiz, Dept :    XNK, birth date : (2041- 9-25), GPA :  60.89
+Student[ st_id :  28145, name :  Fdjahgo, Dept :    DUS, birth date : (2058- 5-30), GPA :  59.24
+Student[ st_id :  46989, name :    Modlb, Dept :   FULV, birth date : (2071- 2- 8), GPA :  53.85
+Student[ st_id :  31669, name :    Oaaer, Dept :    AHN, birth date : (2046- 3- 5), GPA :  89.66
+Student[ st_id :  41220, name :     Smfi, Dept :   XLGF, birth date : (2013-11-26), GPA :  50.21
+Student[ st_id :  28490, name :   Vfppky, Dept :    VDC, birth date : (2069- 7- 5), GPA :  27.99
+Student[ st_id :  25422, name :   Xdpago, Dept :    YLQ, birth date : (2065- 1-28), GPA :  49.91
+Student[ st_id :  16676, name :  Xedobqq, Dept :    KEJ, birth date : (2014- 4-20), GPA :  65.85
+Student[ st_id :  22135, name :   Yjqypf, Dept :    NMZ, birth date : (2040- 1-10), GPA :  91.27
+
+Sorting Student Array by GPA: 
+StudentArray (size : 10)
+Student[ st_id :  28490, name :   Vfppky, Dept :    VDC, birth date : (2069- 7- 5), GPA :  27.99
+Student[ st_id :  25422, name :   Xdpago, Dept :    YLQ, birth date : (2065- 1-28), GPA :  49.91
+Student[ st_id :  41220, name :     Smfi, Dept :   XLGF, birth date : (2013-11-26), GPA :  50.21
+Student[ st_id :  46989, name :    Modlb, Dept :   FULV, birth date : (2071- 2- 8), GPA :  53.85
+Student[ st_id :  28145, name :  Fdjahgo, Dept :    DUS, birth date : (2058- 5-30), GPA :  59.24
+Student[ st_id :  12581, name :     Bjiz, Dept :    XNK, birth date : (2041- 9-25), GPA :  60.89
+Student[ st_id :  16676, name :  Xedobqq, Dept :    KEJ, birth date : (2014- 4-20), GPA :  65.85
+Student[ st_id :  31669, name :    Oaaer, Dept :    AHN, birth date : (2046- 3- 5), GPA :  89.66
+Student[ st_id :  22135, name :   Yjqypf, Dept :    NMZ, birth date : (2040- 1-10), GPA :  91.27
+Student[ st_id :  42617, name :   Afprmz, Dept :   HVJE, birth date : (2064- 9-22), GPA :  98.88
+
+Sorting Student Array by BirthDate: 
+StudentArray (size : 10)
+Student[ st_id :  41220, name :     Smfi, Dept :   XLGF, birth date : (2013-11-26), GPA :  50.21
+Student[ st_id :  16676, name :  Xedobqq, Dept :    KEJ, birth date : (2014- 4-20), GPA :  65.85
+Student[ st_id :  22135, name :   Yjqypf, Dept :    NMZ, birth date : (2040- 1-10), GPA :  91.27
+Student[ st_id :  12581, name :     Bjiz, Dept :    XNK, birth date : (2041- 9-25), GPA :  60.89
+Student[ st_id :  31669, name :    Oaaer, Dept :    AHN, birth date : (2046- 3- 5), GPA :  89.66
+Student[ st_id :  28145, name :  Fdjahgo, Dept :    DUS, birth date : (2058- 5-30), GPA :  59.24
+Student[ st_id :  42617, name :   Afprmz, Dept :   HVJE, birth date : (2064- 9-22), GPA :  98.88
+Student[ st_id :  25422, name :   Xdpago, Dept :    YLQ, birth date : (2065- 1-28), GPA :  49.91
+Student[ st_id :  28490, name :   Vfppky, Dept :    VDC, birth date : (2069- 7- 5), GPA :  27.99
+Student[ st_id :  46989, name :    Modlb, Dept :   FULV, birth date : (2071- 2- 8), GPA :  53.85
+
+
