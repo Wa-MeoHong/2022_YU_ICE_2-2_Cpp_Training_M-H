@@ -1,70 +1,70 @@
 #include "StudentArray.h"
 
-// Ãâ·Â ¿¬»êÀÚ ¿À¹ö·Îµù
+// ì¶œë ¥ ì—°ì‚°ì ì˜¤ë²„ë¡œë”©
 
 ostream& operator<<(ostream& out, const StudentArray& Sa)
 {
-    // ¹è¿­ Ãâ·Â Àü ±âº» Á¤º¸
+    // ë°°ì—´ ì¶œë ¥ ì „ ê¸°ë³¸ ì •ë³´
     out << "StudentArray (size : " << Sa.SIZE() << ")" << endl;
 
-    // ¹è¿­ µ¥ÀÌÅÍ Ãâ·Â
+    // ë°°ì—´ ë°ì´í„° ì¶œë ¥
     for (int i = 0; i < Sa.SIZE(); i++)
         out << Sa.students[i];
 
-    return out;                     // ostream ¹İÈ¯
+    return out;                     // ostream ë°˜í™˜
 }
 
-/*                     »ı¼ºÀÚ, ¼Ò¸êÀÚ
-        1. »ı¼ºÀÚ( size¸¸À» ¸Å°³º¯¼ö·Î ¹ŞÀ½ )
-        2. »ı¼ºÀÚ( ¹è¿­ º¹»ç )
-        3. ¼Ò¸êÀÚ                                     */
-StudentArray::StudentArray(int size)                // »ı¼ºÀÚ( constructor )
+/*                     ìƒì„±ì, ì†Œë©¸ì
+        1. ìƒì„±ì( sizeë§Œì„ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ìŒ )
+        2. ìƒì„±ì( ë°°ì—´ ë³µì‚¬ )
+        3. ì†Œë©¸ì                                     */
+StudentArray::StudentArray(int size)                // ìƒì„±ì( constructor )
 {
     num_students = size;
-    students = new Student[size];                   // µ¿Àû ÇÒ´ç
+    students = new Student[size];                   // ë™ì  í• ë‹¹
 }
-StudentArray::StudentArray(const StudentArray& obj) // »ı¼ºÀÚ( ¹è¿­ º¹»ç )
+StudentArray::StudentArray(const StudentArray& obj) // ìƒì„±ì( ë°°ì—´ ë³µì‚¬ )
 {
-    this->num_students = obj.num_students;          // ¹è¿­ °³¼ö º¹»ç
-    this->students = new Student[this->num_students];   // ¹è¿­ µ¿ÀûÇÒ´ç
+    this->num_students = obj.num_students;          // ë°°ì—´ ê°œìˆ˜ ë³µì‚¬
+    this->students = new Student[this->num_students];   // ë°°ì—´ ë™ì í• ë‹¹
 
     for (int i = 0; i < this->SIZE(); i++)
     {
-        this->students[i] = obj.students[i];            // ¹è¿­ º¹»ç
+        this->students[i] = obj.students[i];            // ë°°ì—´ ë³µì‚¬
     }
 }
-StudentArray::~StudentArray()                   // ¼Ò¸êÀÚ( destuctor )
+StudentArray::~StudentArray()                   // ì†Œë©¸ì( destuctor )
 {
-    delete[] students;                          // ¹è¿­ µ¿ÀûÇÒ´ç ÇØÁ¦
+    delete[] students;                          // ë°°ì—´ ë™ì í• ë‹¹ í•´ì œ
 }
 
-/*                      ¼±ÅÃ Á¤·Ä ÇÔ¼ö
-        ¼±ÅÃÁ¤·Ä ÇÔ¼ö´Â °ÅÀÇ ´Ù °°À½
-        1. »ıÀÏ¿¡ µû¸¥ Á¤·Ä
-        2. ÀÌ¸§ ±âÁØ
-        3. ÇĞ¹ø ±âÁØ
-        4. ÇĞÁ¡ ±âÁØ
-        5. Á¤·ÄÀÇ ±âÁØÀ» ¼³Á¤ÇÒ ¼ö ÀÖÀ½
+/*                      ì„ íƒ ì •ë ¬ í•¨ìˆ˜
+        ì„ íƒì •ë ¬ í•¨ìˆ˜ëŠ” ê±°ì˜ ë‹¤ ê°™ìŒ
+        1. ìƒì¼ì— ë”°ë¥¸ ì •ë ¬
+        2. ì´ë¦„ ê¸°ì¤€
+        3. í•™ë²ˆ ê¸°ì¤€
+        4. í•™ì  ê¸°ì¤€
+        5. ì •ë ¬ì˜ ê¸°ì¤€ì„ ì„¤ì •í•  ìˆ˜ ìˆìŒ
                                                         */
-void StudentArray::sortByBirthDate()                            // »ıÀÏ¿¡ µû¸¥ Á¤·Ä
+void StudentArray::sortByBirthDate()                            // ìƒì¼ì— ë”°ë¥¸ ì •ë ¬
 {
-    Student min_Std; int Index_min;                     // ¹Ù²Ü studentº¯¼ö, ÀÎµ¦½º ¹øÈ£ 
+    Student min_Std; int Index_min;                     // ë°”ê¿€ studentë³€ìˆ˜, ì¸ë±ìŠ¤ ë²ˆí˜¸ 
 
     for (int round = 0; round < this->SIZE() - 1; round++)
     {
-        Index_min = round;                              // ÃÖ¼Ò°ª °»½Å
+        Index_min = round;                              // ìµœì†Œê°’ ê°±ì‹ 
         min_Std = this->students[round];
 
         for (int i = round + 1; i < this->SIZE(); round++)
         {
-            if (min_Std.BirthDate() > this->students[i].BirthDate())    // »ıÀÏÀÌ ´õ ºü¸£´Ù¸é
+            if (min_Std.BirthDate() > this->students[i].BirthDate())    // ìƒì¼ì´ ë” ë¹ ë¥´ë‹¤ë©´
             {
-                Index_min = i;                          // ÃÖ¼Ò°ªÀ¸·Î °»½Å
+                Index_min = i;                          // ìµœì†Œê°’ìœ¼ë¡œ ê°±ì‹ 
                 min_Std = this->students[i];
             }
         }
 
-        // ¼±Á¤ ÈÄ ½º¿Ò
+        // ì„ ì • í›„ ìŠ¤ì™‘
 
         if (Index_min != round)
         {
@@ -73,32 +73,7 @@ void StudentArray::sortByBirthDate()                            // »ıÀÏ¿¡ µû¸¥ Á
         }
     }
 }
-void StudentArray::sortByName()                                 // ÀÌ¸§¿¡ ´ëÇØ Á¤·Ä                    
-{
-    Student min_Std; int Index_min;
-
-    for (int round = 0; round < this->SIZE() - 1; round++)
-    {
-        Index_min = round;
-        min_Std = this->students[round];
-
-        for (int i = round + 1; i < this->SIZE(); round++)
-        {
-            if (min_Std.Name().compare(this->students->Name()) < 0)     // ÇĞ»ıÀÇ ÀÌ¸§À¸·Î Á¤·Ä
-            {
-                Index_min = i;
-                min_Std = this->students[i];
-            }
-        }
-        // ¼±Á¤ ÈÄ, ½º¿Ò
-        if (Index_min != round)
-        {
-            this->students[Index_min] = this->students[round];
-            this->students[round] = min_Std;
-        }
-    }
-}
-void StudentArray::sortByST_ID()                                // ÇĞ¹ø¿¡ µû¸¥ Á¤·Ä
+void StudentArray::sortByName()                                 // ì´ë¦„ì— ëŒ€í•´ ì •ë ¬                    
 {
     Student min_Std; int Index_min;
 
@@ -109,13 +84,13 @@ void StudentArray::sortByST_ID()                                // ÇĞ¹ø¿¡ µû¸¥ Á
 
         for (int i = round + 1; i < this->SIZE(); round++)
         {
-            if (min_Std.ST_ID() > this->students[i].ST_ID())        // ¾ÆÀÌµğ°¡ ´õ ºü¸¥°¡
+            if (min_Std.Name().compare(this->students->Name()) < 0)     // í•™ìƒì˜ ì´ë¦„ìœ¼ë¡œ ì •ë ¬
             {
                 Index_min = i;
                 min_Std = this->students[i];
             }
         }
-        // ¼±Á¤ ÈÄ ½º¿Ò 
+        // ì„ ì • í›„, ìŠ¤ì™‘
         if (Index_min != round)
         {
             this->students[Index_min] = this->students[round];
@@ -123,7 +98,32 @@ void StudentArray::sortByST_ID()                                // ÇĞ¹ø¿¡ µû¸¥ Á
         }
     }
 }
-void StudentArray::sortByGPA()                                  // ÇĞÁ¡¿¡ µû¸¥ Á¤·Ä
+void StudentArray::sortByST_ID()                                // í•™ë²ˆì— ë”°ë¥¸ ì •ë ¬
+{
+    Student min_Std; int Index_min;
+
+    for (int round = 0; round < this->SIZE() - 1; round++)
+    {
+        Index_min = round;
+        min_Std = this->students[round];
+
+        for (int i = round + 1; i < this->SIZE(); round++)
+        {
+            if (min_Std.ST_ID() > this->students[i].ST_ID())        // ì•„ì´ë””ê°€ ë” ë¹ ë¥¸ê°€
+            {
+                Index_min = i;
+                min_Std = this->students[i];
+            }
+        }
+        // ì„ ì • í›„ ìŠ¤ì™‘ 
+        if (Index_min != round)
+        {
+            this->students[Index_min] = this->students[round];
+            this->students[round] = min_Std;
+        }
+    }
+}
+void StudentArray::sortByGPA()                                  // í•™ì ì— ë”°ë¥¸ ì •ë ¬
 {
     Student max_Std; int Index_max;
 
@@ -134,14 +134,14 @@ void StudentArray::sortByGPA()                                  // ÇĞÁ¡¿¡ µû¸¥ Á
 
         for (int i = round + 1; i < this->SIZE(); round++)
         {
-            if (max_Std.GPA() < this->students[i].GPA())       // ÇĞÁ¡ÀÌ ´õ ÀÛÀº°¡
+            if (max_Std.GPA() < this->students[i].GPA())       // í•™ì ì´ ë” í°ê°€
             {
                 Index_max = i;
                 max_Std = this->students[i];
             }
         }
 
-        // ¼±Á¤ ÈÄ ½º¿Ò
+        // ì„ ì • í›„ ìŠ¤ì™‘
         if (Index_max != round)
         {
             this->students[Index_max] = this->students[round];
@@ -149,7 +149,7 @@ void StudentArray::sortByGPA()                                  // ÇĞÁ¡¿¡ µû¸¥ Á
         }
     }
 }
-void StudentArray::SelectSort(int sel)                          //±âÁØ¿¡ µû¶ó ¼±ÅÃÁ¤·Ä °¡´É 
+void StudentArray::SelectSort(int sel)                          //ê¸°ì¤€ì— ë”°ë¼ ì„ íƒì •ë ¬ ê°€ëŠ¥ 
 {
     Student min_Std; int Index_min;
     int comparetemp = 0;
@@ -161,8 +161,8 @@ void StudentArray::SelectSort(int sel)                          //±âÁØ¿¡ µû¶ó ¼±
 
         for (int i = round + 1; i < this->SIZE(); i++)
         {
-            // Á¤·ÄÀÇ ±âÁØÀ» Á¤ÇÒ ¼ö ÀÖÀ½. selÀ» ÅëÇØ ¹Ş¾Æ¿À°í, comparetemp¿¡ ´ã´Â´ã
-            // 1. ÇĞÁ¡, 2. ÀÌ¸§, 3. GPA, 4. »ıÀÏ
+            // ì •ë ¬ì˜ ê¸°ì¤€ì„ ì •í•  ìˆ˜ ìˆìŒ. selì„ í†µí•´ ë°›ì•„ì˜¤ê³ , comparetempì— ë‹´ëŠ”ë‹´
+            // 1. í•™ì , 2. ì´ë¦„, 3. GPA, 4. ìƒì¼
             switch (sel)
             {
             case 1:
@@ -193,7 +193,7 @@ void StudentArray::SelectSort(int sel)                          //±âÁØ¿¡ µû¶ó ¼±
                 min_Std = this->students[i];
             }
         }
-        // ¼±Á¤ ÈÄ ½º¿Ò
+        // ì„ ì • í›„ ìŠ¤ì™‘
         if (Index_min != round)
         {
             this->students[Index_min] = this->students[round];
@@ -202,17 +202,17 @@ void StudentArray::SelectSort(int sel)                          //±âÁØ¿¡ µû¶ó ¼±
     }
 }
 
-Student& StudentArray::operator[] (int sub)                     // ÇĞ»ı ¹è¿­ ÀÎµ¦½º °ª ¹İÈ¯
+Student& StudentArray::operator[] (int sub)                     // í•™ìƒ ë°°ì—´ ì¸ë±ìŠ¤ ê°’ ë°˜í™˜
 {
-    if (isValidIndex(sub))                                      // ÀÎµ¦½º¹øÈ£°¡ À¯È¿ÇÑÁö
+    if (isValidIndex(sub))                                      // ì¸ë±ìŠ¤ë²ˆí˜¸ê°€ ìœ íš¨í•œì§€
         return students[sub];
     else
         cout << "Error : Subscript out of range.\n"; exit(0);
 }
-bool StudentArray::isValidIndex(int index) const                // ÀÎµ¦½º ¹øÈ£°¡ À¯È¿ÇÑ°¡
+bool StudentArray::isValidIndex(int index) const                // ì¸ë±ìŠ¤ ë²ˆí˜¸ê°€ ìœ íš¨í•œê°€
 {
-    if (index < 0 || index >= this->SIZE())                     // ÀÎµ¦½º ¹øÈ£°¡ ¹ş¾î³­´Ù¸é false
+    if (index < 0 || index >= this->SIZE())                     // ì¸ë±ìŠ¤ ë²ˆí˜¸ê°€ ë²—ì–´ë‚œë‹¤ë©´ false
         return false;
     else
-        return true;                                            // ¾Æ´Ï¸é true
+        return true;                                            // ì•„ë‹ˆë©´ true
 }
