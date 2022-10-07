@@ -125,34 +125,34 @@ void StudentArray::sortByST_ID()                                // 학번에 따른 �
 }
 void StudentArray::sortByGPA()                                  // 학점에 따른 정렬
 {
-    Student min_Std; int Index_min;
+    Student max_Std; int Index_max;
 
     for (int round = 0; round < this->SIZE() - 1; round++)
     {
-        Index_min = round;
-        min_Std = this->students[round];
+        Index_max = round;
+		max_Std = this->students[round];
 
         for (int i = round + 1; i < this->SIZE(); round++)
         {
-            if (min_Std.GPA() > this->students[i].GPA())       // 학점이 더 작은가
+            if (max_Std.GPA() < this->students[i].GPA())       // 학점이 더 작은가
             {
-                Index_min = i;
-                min_Std = this->students[i];
+                Index_max = i;
+                max_Std = this->students[i];
             }
         }
 
         // 선정 후 스왑
-        if (Index_min != round)
+        if (Index_max != round)
         {
-            this->students[Index_min] = this->students[round];
-            this->students[round] = min_Std;
+            this->students[Index_max] = this->students[round];
+            this->students[round] = max_Std;
         }
     }
 }
 void StudentArray::SelectSort(int sel)                          //기준에 따라 선택정렬 가능 
 {
     Student min_Std; int Index_min;
-    int comparetemp;
+    int comparetemp = 0;
 
     for (int round = 0; round < this->SIZE() - 1; round++)
     {
@@ -177,7 +177,7 @@ void StudentArray::SelectSort(int sel)                          //기준에 따라 선
             }
             case 3:
             {
-                comparetemp = (min_Std.GPA() > this->students[i].GPA());
+                comparetemp = (min_Std.GPA() < this->students[i].GPA());
                 break;
             }
             case 4:
