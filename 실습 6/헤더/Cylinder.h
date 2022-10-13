@@ -23,8 +23,8 @@ public:
 	~Cylinder();
 
 	// member functions
-	virtual void draw(ConsolePixelFrame cp_frame);			// µµÇü
-	void fprint(ostream&) const;							// Shape °´Ã¼ Ãâ·Â
+	virtual void draw(ConsolePixelFrame cp_frame);			// ë„í˜• ê·¸ë¦¬ê¸° 
+	void fprint(ostream&) const;							// Shape ì •ë³´ ì¶œë ¥
 
 	// getter
 	double Area() const;
