@@ -1,10 +1,10 @@
 #include "Rectang.h"
 
-/*				constructor ( »ı¼ºÀÚ )
-		1. default constructor ( µğÆúÆ® »ı¼ºÀÚ )
-		2. name¸¸ ÀÎ¼ö¸¦ ¹Ş´Â constructor
-		3. ¸ğµç ÀÎÀÚ¸¦ ¹Ş´Â constructor
-		4. º¹Á¦»ı¼ºÀÚ								*/
+/*				constructor ( ìƒì„±ì )
+		1. default constructor ( ë””í´íŠ¸ ìƒì„±ì )
+		2. nameë§Œ ì¸ìˆ˜ë¥¼ ë°›ëŠ” constructor
+		3. ëª¨ë“  ì¸ìë¥¼ ë°›ëŠ” constructor
+		4. ë³µì œìƒì„±ì								*/
 Rectang::Rectang()
 {
 	width = 0;
@@ -29,16 +29,16 @@ Rectang::Rectang(const Rectang& rec)
 	this->setLength(rec.Length());
 }
 
-/*				destructor ( ¼Ò¸êÀÚ )				*/
+/*				destructor ( ì†Œë©¸ì )				*/
 Rectang::~Rectang()
 {
 	// cout << "Rectang class terminated!" << endl;
 }
 
-/*				member functions ( ¸â¹ö ÇÔ¼öµé )
-		1. draw(ConsolePixelFrame cp_frame)	( ±×¸² ±×¸®±â ÇÔ¼ö ) 
-		2. fprint(ostream&) const ( Ãâ·Â ÇÔ¼ö )
-		3. Area() const ( ³ĞÀÌ ±¸ÇÏ´Â ÇÔ¼ö )			*/
+/*				member functions ( ë©¤ë²„ í•¨ìˆ˜ë“¤ )
+		1. draw(ConsolePixelFrame cp_frame)	( ê·¸ë¦¼ ê·¸ë¦¬ê¸° í•¨ìˆ˜ ) 
+		2. fprint(ostream&) const ( ì¶œë ¥ í•¨ìˆ˜ )
+		3. Area() const ( ë„“ì´ êµ¬í•˜ëŠ” í•¨ìˆ˜ )			*/
 void Rectang::draw(ConsolePixelFrame cp_frame)
 {
 	HDC hdc;
@@ -46,31 +46,31 @@ void Rectang::draw(ConsolePixelFrame cp_frame)
 	HBRUSH new_brush, old_brush;
 
 	int fr_px, fr_py;
-	fr_px = cp_frame.Cpfr_Px() + pX();				// cmd x ÁÂÇ¥ (Áß½ÉÁ¡)
-	fr_py = cp_frame.Cpfr_Py() + pY();				// cmd y ÁÂÇ¥ (Áß½ÉÁ¡)
+	fr_px = cp_frame.Cpfr_Px() + pX();				// cmd x ì¢Œí‘œ (ì¤‘ì‹¬ì )
+	fr_py = cp_frame.Cpfr_Py() + pY();				// cmd y ì¢Œí‘œ (ì¤‘ì‹¬ì )
 
-	POINT p[4];										// Point ±¸Á¶Ã¼ º¯¼ö ( ²ÀÁşÁ¡) 
-	p[0].x = fr_px - width / 2; p[0].y = fr_py - length / 2.0;		// ¹Øº¯ ¿ŞÂÊ ÁÂÇ¥
-	p[1].x = fr_px + width / 2; p[1].y = fr_py - length / 2.0;		// ¹Øº¯ ¿À¸¥ÂÊ ÁÂÇ¥
-	p[2].x = fr_px + width / 2; p[2].y = fr_py + length / 2.0;		// À­º¯ ¿ŞÂÊ ÁÂÇ¥
-	p[3].x = fr_px - width / 2; p[3].y = fr_py + length / 2.0;		// À­º¯ ¿À¸¥ÂÊ ÁÂÇ¥
+	POINT p[4];										// Point êµ¬ì¡°ì²´ ë³€ìˆ˜ ( ê¼­ì§“ì ) 
+	p[0].x = fr_px - width / 2; p[0].y = fr_py - length / 2.0;		// ìœ—ë³€ ì™¼ìª½ ì¢Œí‘œ
+	p[1].x = fr_px + width / 2; p[1].y = fr_py - length / 2.0;		// ìœ—ë³€ ì˜¤ë¥¸ìª½ ì¢Œí‘œ
+	p[2].x = fr_px + width / 2; p[2].y = fr_py + length / 2.0;		// ë°‘ë³€ ì™¼ìª½ ì¢Œí‘œ
+	p[3].x = fr_px - width / 2; p[3].y = fr_py + length / 2.0;		// ë°‘ë³€ ì˜¤ë¥¸ìª½ ì¢Œí‘œ
 
-	// HDC, HPEN, HBRUSH¸¦ »ı¼º
+	// HDC, HPEN, HBRUSHë¥¼ ìƒì„±
 	hdc = cp_frame.Console_DC();
 	new_pen = CreatePen(PS_SOLID, pen_thickness, line_color);
 	old_pen = (HPEN)SelectObject(hdc, new_pen);
 	new_brush = CreateSolidBrush(brush_color);
 	old_brush = (HBRUSH)SelectObject(hdc, new_brush);
 
-	Polygon(hdc, p, 4);								// »ç°¢Çü ±×¸²À» ±×¸²	
+	Polygon(hdc, p, 4);								// ì‚¬ê°í˜• ê·¸ë¦¼ì„ ê·¸ë¦¼	
 
-	// ¿ÀºêÁ§Æ® (Ææ, ºê·¯½Ã ) delete
+	// ì˜¤ë¸Œì íŠ¸ (íœ, ë¸ŒëŸ¬ì‹œ ) delete
 	SelectObject(hdc, old_pen);		DeleteObject(new_pen);
 	SelectObject(hdc, old_brush);	DeleteObject(new_brush);
 }
 void Rectang::fprint(ostream& out) const
 {
-	out.setf(ios::showpoint); out.setf(ios::fixed);				// °íÁ¤ ¼Ò¼öÁ¡ 2ÀÚ¸®±îÁö¸¸ Ãâ·Â
+	out.setf(ios::showpoint); out.setf(ios::fixed);				// ê³ ì • ì†Œìˆ˜ì  2ìë¦¬ê¹Œì§€ë§Œ ì¶œë ¥
 	out.precision(2);
 
 	this->Shape::fprint(out);
@@ -83,9 +83,9 @@ double Rectang::Area() const
 	return (Width() * Length());
 }
 
-/*				operator Overloading ( ¿¬»êÀÚ ¿À¹ö·Îµå )
-		1. ´ëÀÔ ¿¬»êÀÚ ( = )
-		2. Ãâ·Â ¿¬»êÀÚ ( << )										*/
+/*				operator Overloading ( ì—°ì‚°ì ì˜¤ë²„ë¡œë“œ )
+		1. ëŒ€ì… ì—°ì‚°ì ( = )
+		2. ì¶œë ¥ ì—°ì‚°ì ( << )										*/
 Rectang& Rectang::operator=(const Rectang& rec)
 {
 	this->Shape::operator=(rec);
@@ -93,11 +93,11 @@ Rectang& Rectang::operator=(const Rectang& rec)
 	this->setLength(rec.Length());
 
 	return *this;
-	// TODO: ¿©±â¿¡ return ¹®À» »ğÀÔÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— return ë¬¸ì„ ì‚½ì…í•©ë‹ˆë‹¤.
 }
 ostream& operator<<(ostream& out, const Rectang& rec)
 {
 	out << rec.Name() << " : ";	rec.fprint(out);
 	return out;
-	// TODO: ¿©±â¿¡ return ¹®À» »ğÀÔÇÕ´Ï´Ù.
+	// TODO: ì—¬ê¸°ì— return ë¬¸ì„ ì‚½ì…í•©ë‹ˆë‹¤.
 }
