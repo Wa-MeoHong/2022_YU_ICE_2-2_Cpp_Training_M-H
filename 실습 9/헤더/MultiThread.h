@@ -16,15 +16,15 @@ enum THREAD_FLAG { INITIALIZE, RUN, TERMINATE };	// thread flag enum
 /* ThreadStatusMonitor ( 쓰레드 상태 모니터 구조체 ) */
 typedef struct _ThreadStatusMonitor
 {
-	int numEvGenerated;				// 생성된 이벤트의 개수
-	int nuMEvProcessed;				// 처리된 이벤트의 개수
-	int totalGenerated;				// 총 생성된 이벤트 개수
-	int totalProcessed;				// 총 처리된 이벤트 개수
+	int numEvGenerated = 0;				// 생성된 이벤트의 개수
+	int nuMEvProcessed = 0;				// 처리된 이벤트의 개수
+	int totalGenerated = 0;				// 총 생성된 이벤트 개수
+	int totalProcessed = 0;				// 총 처리된 이벤트 개수
 
 	Event EvGenerated[TOTAL_NUM_EVENTS];		// 생성된 이벤트를 담는 배열
 	Event EvProcessed[TOTAL_NUM_EVENTS];		// 처리된 이벤트를 담는 배열
 
-	THREAD_FLAG* pFlagThreadTerminated;		// Thread가 terminated가 되었는지 enum변수를 들고옴
+	THREAD_FLAG* pFlagThreadTerminated = NULL;		// Thread가 terminated가 되었는지 enum변수를 들고옴
 
 } ThrdStatMonitor;
 

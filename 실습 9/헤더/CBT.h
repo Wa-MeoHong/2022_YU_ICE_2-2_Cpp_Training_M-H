@@ -63,7 +63,7 @@ inline int CompleteBinaryTree<K, V>::add_at_end(T_Entry<K, V>& elem)
 		cout << this->name << "is Full now !!" << endl;
 		return end;
 	}
-	// 꽉 차지 않았다면 end를 +1 한 후, elem를 추가한 후 반환한다.
+	// 꽉 차지 않았다면 end를 + 1 한 후, elem를 추가한 후 반환한다.
 	this->end++;
 	this->t_GA[this->end] = elem;
 

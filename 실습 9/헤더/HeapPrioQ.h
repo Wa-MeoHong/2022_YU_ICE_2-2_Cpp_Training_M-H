@@ -10,11 +10,11 @@
 using namespace std;
 
 template<typename K, typename V>
-class HeapPrioQueue : public CompleteBinaryTree<K, V>
+class HeapPrioQ_CS : public CompleteBinaryTree<K, V>
 {
 public:
-	HeapPrioQueue(int capa, string nm);
-	~HeapPrioQueue();
+	HeapPrioQ_CS(int capa, string nm);
+	~HeapPrioQ_CS();
 
 	// getter 
 	bool isEmpty() { return this->size() == 0; }
@@ -28,19 +28,19 @@ public:
 	void fprint(ostream& ostr);
 private:
 	int capacity;
-	mutex cs_priQ;			// mutex 按眉 ( critical section)
+	mutex cs_priQ;			// mutex 按眉 ( critical section )
 };
 
 /*					constructor ( 积己磊 )				*/
 template<typename K, typename V>
-inline HeapPrioQueue<K, V>::HeapPrioQueue(int capa, string nm)
+inline HeapPrioQ_CS<K, V>::HeapPrioQ_CS(int capa, string nm)
 	: CompleteBinaryTree<K, V>(capa+ 1, nm), capacity(capa)
 {
 }
 
 /*					destructor ( 家戈磊 )				*/
 template<typename K, typename V>
-inline HeapPrioQueue<K, V>::~HeapPrioQueue()
+inline HeapPrioQ_CS<K, V>::~HeapPrioQ_CS()
 {
 	cout << "HeapPriority Queue is destructed !" << endl;
 }
@@ -52,7 +52,7 @@ inline HeapPrioQueue<K, V>::~HeapPrioQueue()
 		*/
 
 template<typename K, typename V>
-inline T_Entry<K, V>* HeapPrioQueue<K, V>::HeapMin()
+inline T_Entry<K, V>* HeapPrioQ_CS<K, V>::HeapMin()
 {
 	T_Entry<K, V>* pMinElem;
 	if (size() <= 0)
@@ -65,7 +65,7 @@ inline T_Entry<K, V>* HeapPrioQueue<K, V>::HeapMin()
 	return pMinElem;
 }
 template<typename K, typename V>
-inline T_Entry<K, V>* HeapPrioQueue<K, V>::insert(T_Entry<K, V>& elem)
+inline T_Entry<K, V>* HeapPrioQ_CS<K, V>::insert(T_Entry<K, V>& elem)
 {
 	int index, ParentIndex;
 	T_Entry<K, V> temp;
@@ -100,7 +100,7 @@ inline T_Entry<K, V>* HeapPrioQueue<K, V>::insert(T_Entry<K, V>& elem)
 	return pRoot;
 }
 template<typename K, typename V>
-inline T_Entry<K, V>* HeapPrioQueue<K, V>::removeHeapMin()
+inline T_Entry<K, V>* HeapPrioQ_CS<K, V>::removeHeapMin()
 {
 	int index_p, index_c, index_rc;
 	T_Entry<K, V>* pMinElem = NULL;
@@ -154,7 +154,7 @@ inline T_Entry<K, V>* HeapPrioQueue<K, V>::removeHeapMin()
 	return pMinElem;
 }
 template<typename K, typename V>
-inline void HeapPrioQueue<K, V>::fprint(ostream& ostr)
+inline void HeapPrioQ_CS<K, V>::fprint(ostream& ostr)
 {
 	if (this->size() <= 0) // if is empty
 	{
