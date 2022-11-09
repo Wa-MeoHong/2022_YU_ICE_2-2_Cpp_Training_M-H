@@ -3,7 +3,7 @@
   프로그램의 목적 및 기본 기능:
 	- 탬플릿, 멀티스레드를 활용하여 Heap Priority Queue를 구성하여 이벤트를 다룬다
   프로그램 작성자 : 신대홍(2022년 11월 6일)
-  최종 Update : Version 1.0.0, 2022년 11월 6일(신대홍)
+  최종 Update : Version 1.2.0, 2022년 11월 9일(신대홍)
 ===========================================================================================================
 					프로그램 수정/보완 이력
 ===========================================================================================================
@@ -11,7 +11,9 @@
 -----------------------------------------------------------------------------------------------------------
 	신대홍		 2022/11/06		v1.0.0		  최초작성
 	신대홍		 2022/11/08		v1.1.0		  완성
-
+	신대홍		 2022/11/09		v1.2.0		  Event Generate 할 때, mutex 설정을 통해 insert를 안정적으로 하게함
+	신대홍		 2022/11/09		v1.2.1		  TA_Entry 생성할 떄, new로 범위를 capacity + 1하여 안정적으로 하게함
+	
 ===========================================================================================================
 */
 
@@ -31,6 +33,7 @@
 #include <conio.h>
 
 using namespace std;
+using std::this_thread::sleep_for;
 
 #define OUTPUT "output.txt"
 
@@ -39,8 +42,8 @@ int main(void)
 	// 필요한 변수들
 	ofstream fout;
 	double min_elapsed, max_elapsed;
-	double avg_elapsed, total_elapsed;
-	HeapPrioQueue<int, Event> heapPriQ_Event(30, string("HeapPriorityQueue_Event"));
+	double avg_elapsed, total_elapsed = 0.0;
+	HeapPrioQueue<int, Event> heapPriQ_Event(PRI_QUEUE_CAPACITY, string("HeapPriorityQueue_Event"));
 	Event* pEv = NULL, * pEv_min = NULL, * pEv_max = NULL;
 
 	// 쓰레드를 돌리기 위한 변수들
@@ -150,7 +153,8 @@ int main(void)
 			pEv = &thrdMon.EvProcessed[ev];
 			if (pEv != NULL)
 			{
-				cout << *pEv << " ";
+				pEv->PrintEv_Proc();
+				cout << " ";
 				if ((ev + 1) % EVENT_PER_LINE == 0)		// 한 줄당 출력하는 이벤트 수는 정해져있음
 					cout << endl;
 			}
@@ -173,7 +177,7 @@ int main(void)
 					max_elapsed = pEv->EvElaspedTime(); pEv_max = pEv;
 				}
 				// 총 걸린 시간을 측정
-				total_elapsed = pEv->EvElaspedTime();
+				total_elapsed += pEv->EvElaspedTime();
 			}
 		}
 		cout << endl;
@@ -196,15 +200,16 @@ int main(void)
 		{
 			evThrdFlag = TERMINATE;
 			cs_main.unlock();
+			//sleep_for(std::chrono::milliseconds(0));	// == <windows.h> sleep(500);
 			break;
 		}
 		cs_main.unlock();
 		Sleep(100);
 	}
 
-	thrd_EvProc.join();			// 쓰레드 thrd_EvProc가 TERMINATED되기를 대기하고있음
 	thrd_EvGen.join();			// 쓰레드 thrd_EvGen가 TERMINATED되기를 대기하고있음
-
+	thrd_EvProc.join();			// 쓰레드 thrd_EvProc가 TERMINATED되기를 대기하고있음
+	
 	fout.close();
 
 	cout << "\nHit any key to terminated : ";

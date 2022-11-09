@@ -30,7 +30,7 @@ void Event::PrintEv_Proc()
 	// print format : Ev(no: xx, pri: xx, t_elapsed: xx.xx )
 	cout << "Ev(no:" << setw(2) << EvNo() << ", pri: " << setw(2) << EvPri();
 	cout.precision(2); cout.setf(ios::fixed);
-	cout << "t_elapsed:" << setw(8) << EvElaspedTime() << ")";
+	cout << ", t_elapsed:" << setw(8) << EvElaspedTime() << "ms)";
 }
 Event* genRandEvent(int evt_no)
 {
