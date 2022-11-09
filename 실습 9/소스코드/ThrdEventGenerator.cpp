@@ -27,7 +27,7 @@ void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 	int ev_no = 0;
 	int ev_pri = 0;
 	int ev_gen_count = 0;
-	int ev_handler_addr;
+	int ev_handler_addr = 0;
 	LARGE_INTEGER t_gen;
 
 	// MaxRound까지 돌 때까지 혹은, 쓰레드가 Terminated될 때까짖
@@ -37,10 +37,15 @@ void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 		{
 			// 만약 쓰레드 상태가 TERMINATED라면 이 반복문을 탈출
 			if (*pThrdMon->pFlagThreadTerminated == TERMINATE)
+				// TERMINATE 상태라면 모든 쓰레드에 걸린 mutex를 전부 언락시킨후 반복문을 탈출한다.		
+			{
 				break;
+			}
 			else
 			{
-				sleep_for(std::chrono::milliseconds(500));	// == <windows.h> sleep(500)
+				// if ((pParam->pCS_thrd_mon->try_lock()))
+				//	pParam->pCS_thrd_mon->unlock();
+				sleep_for(std::chrono::milliseconds(50));	// == <windows.h> sleep(500)
 				continue;									// TERMINATED가 될 때까지 for문을 반복한다.
 			}
 		}
@@ -56,21 +61,29 @@ void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 		QueryPerformanceCounter(&t_gen);
 		ev.SetEvGenTime(t_gen);
 		ev.SetEvStatus(GENERATED);
-
+	
 		entry_event.SetKey(ev.EvPri());
 		entry_event.SetVal(ev);
 
+
 		// 만약 이벤트를 큐에 넣을 수 없는 상황이 된다면(insert 반환값이 NULL이라면)
 		// 큐가 가득찼다는 메세지를 출력, 쓰레드로 돌고 있으므로 While로 계속 반복시킨다.
-		while (pPriQ_Ev->insert(entry_event) == NULL)
+
+		do
 		{
 			pParam->pCS_main->lock();					// mutex로 먼저 쓰레드를 잠금
+			if (pPriQ_Ev->insert(entry_event) != NULL)
+			{
+				pParam->pCS_main->unlock();					// 다시 언락
+				break;
+			}
 			cout << "PriQ_Event is Full, waiting . . . " << endl;
 			pParam->pCS_main->unlock();
 			sleep_for(std::chrono::milliseconds(100));	// == <windows.h> sleep(100)
-		}
+		}while (pEv == NULL);								// 일단 먼저 반복해본다
+
+		pParam->pCS_main->lock();					// mutex로 먼저 쓰레드를 잠금
 		// while문에 들어가지 않았으면 성공적으로 이벤트를 집어넣었다는 메세지를 출력한다.
-		pParam->pCS_main->lock();
 		cout << "Successfully inserted into Prio_Ev " << endl;
 		pParam->pCS_main->unlock();
 
@@ -81,8 +94,6 @@ void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 		pParam->pCS_thrd_mon->unlock();
 
 		ev_gen_count++;
-		sleep_for(std::chrono::milliseconds(45));	// == <windows.h> sleep(45)
-
-
+		sleep_for(std::chrono::milliseconds(10));	// == <windows.h> sleep(10)
 	}
 }
