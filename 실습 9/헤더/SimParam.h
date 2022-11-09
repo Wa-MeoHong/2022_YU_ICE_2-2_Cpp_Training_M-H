@@ -10,7 +10,7 @@
 // 총 이벤트 개수 = (한 제너레이터가 발생하는 이벤트 수) * (제너레이터 수)
 #define TOTAL_NUM_EVENTS (NUM_EVENTS_PER_GEN * NUM_EVENT_GENERATORS)
 
-#define PRI_QUEUE_CAPACITY 50		// PriQ의 용량 = 50
+#define PRI_QUEUE_CAPACITY  30		// PriQ의 용량 = 50
 #define PLUS_INF INT_MAX			// INT_MAX = 21억 ....
 #define MAX_ROUND 1000				// ROUND 최대 수 
 #define EVENT_PER_LINE 5			// 한 줄당 출력하는 이벤트 수
