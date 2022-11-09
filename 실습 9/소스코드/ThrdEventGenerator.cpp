@@ -12,7 +12,7 @@ using std::this_thread::sleep_for;
 void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 {
 	// pParam의 변수들을 좀 더 쉽게 쓰기위해 지역변수화 시킴
-	HeapPrioQueue<int, Event>* pPriQ_Ev = pParam->pPriQ_Event;
+	HeapPrioQ_CS<int, Event>* pPriQ_Ev = pParam->pPriQ_Event;
 	int myRole = pParam->role;
 	int myAddr = pParam->myAddr;
 	int maxRound = pParam->maxRound;
@@ -21,7 +21,7 @@ void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 	ThrdStatMonitor* pThrdMon = pParam->pThrdMon;
 
 	// 쓰일 변수들 
-	T_Entry<int, Event> entry_event;
+	T_Entry<int, Event> entry_event, *pEv = NULL;
 	Event ev;
 
 	int ev_no = 0;
@@ -72,7 +72,7 @@ void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 		do
 		{
 			pParam->pCS_main->lock();					// mutex로 먼저 쓰레드를 잠금
-			if (pPriQ_Ev->insert(entry_event) != NULL)
+			if ((pEv = pPriQ_Ev->insert(entry_event)) != NULL)
 			{
 				pParam->pCS_main->unlock();					// 다시 언락
 				break;
@@ -80,7 +80,7 @@ void EventGen(ThrdParam* pParam)					// 이벤트 제너레이팅 쓰레드 함수
 			cout << "PriQ_Event is Full, waiting . . . " << endl;
 			pParam->pCS_main->unlock();
 			sleep_for(std::chrono::milliseconds(100));	// == <windows.h> sleep(100)
-		}while (pEv == NULL);								// 일단 먼저 반복해본다
+		}while (pEv== NULL);								// 일단 먼저 반복해본다
 
 		pParam->pCS_main->lock();					// mutex로 먼저 쓰레드를 잠금
 		// while문에 들어가지 않았으면 성공적으로 이벤트를 집어넣었다는 메세지를 출력한다.

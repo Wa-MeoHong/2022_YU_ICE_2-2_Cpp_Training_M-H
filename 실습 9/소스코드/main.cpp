@@ -43,7 +43,7 @@ int main(void)
 	ofstream fout;
 	double min_elapsed, max_elapsed;
 	double avg_elapsed, total_elapsed = 0.0;
-	HeapPrioQueue<int, Event> heapPriQ_Event(PRI_QUEUE_CAPACITY, string("HeapPriorityQueue_Event"));
+	HeapPrioQ_CS<int, Event> heapPriQ_Event(PRI_QUEUE_CAPACITY, string("HeapPriorityQueue_Event"));
 	Event* pEv = NULL, * pEv_min = NULL, * pEv_max = NULL;
 
 	// 쓰레드를 돌리기 위한 변수들

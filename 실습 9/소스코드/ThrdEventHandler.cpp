@@ -12,7 +12,7 @@ using std::this_thread::sleep_for;
 void EventProc(ThrdParam* pParam)					// 이벤트 프로세싱 쓰레드 함수
 {
 	// pParam의 변수들을 좀더 쉽게 쓰기 위해 지역변수화
-	HeapPrioQueue<int, Event>* pPriQ_Ev = pParam->pPriQ_Event;
+	HeapPrioQ_CS<int, Event>* pPriQ_Ev = pParam->pPriQ_Event;
 	int myRole = pParam->role;
 	int myAddr = pParam->myAddr;
 	int maxRound = pParam->maxRound;
@@ -42,9 +42,9 @@ void EventProc(ThrdParam* pParam)					// 이벤트 프로세싱 쓰레드 함수
 
 		if (!(pPriQ_Ev->isEmpty()))
 		{
-			//pParam->pCS_main->lock();
+			pParam->pCS_main->lock();
 			pEntry = pPriQ_Ev->removeHeapMin();
-			//pParam->pCS_main->unlock();
+			pParam->pCS_main->unlock();
 
 			ev = pEntry->Val();
 
