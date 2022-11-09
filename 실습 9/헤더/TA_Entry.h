@@ -70,7 +70,7 @@ inline TA_Entry<K, V>::TA_Entry(int n, string nm)
 	: capacity(n), name(nm)
 {
 	num_elements = 0;
-	t_GA = new T_Entry<K, V>[capacity];
+	t_GA = new T_Entry<K, V>[capacity ];
 }
 
 /*			destructor ( ¼Ò¸êÀÚ )			*/

@@ -23,7 +23,7 @@ public:
 	T_Entry<K, V>* HeapMin();
 
 	// member functions
-	int insert(T_Entry<K, V>& elem);
+	T_Entry<K, V>* insert(T_Entry<K, V>& elem);
 	T_Entry<K, V>* removeHeapMin();
 	void fprint(ostream& ostr);
 private:
@@ -34,7 +34,7 @@ private:
 /*					constructor ( 생성자 )				*/
 template<typename K, typename V>
 inline HeapPrioQueue<K, V>::HeapPrioQueue(int capa, string nm)
-	: CompleteBinaryTree<K, V>(capa, nm), capacity(capa)
+	: CompleteBinaryTree<K, V>(capa+ 1, nm), capacity(capa)
 {
 }
 
@@ -47,7 +47,9 @@ inline HeapPrioQueue<K, V>::~HeapPrioQueue()
 
 /*				member function ( 멤버 함수 )
 		1. HeapMin() ( Heap Queue의 가장 우선순위가 낮은 값 반환 )
-		2. Insert(elem) ( 큐에 */
+		2. Insert(elem) ( 큐에 이벤트를 집어넣음 ) 
+		3.removeHeapMin() ( 우선순위가 가장 낮은 Root노드를 제거 )
+		*/
 
 template<typename K, typename V>
 inline T_Entry<K, V>* HeapPrioQueue<K, V>::HeapMin()
@@ -63,7 +65,7 @@ inline T_Entry<K, V>* HeapPrioQueue<K, V>::HeapMin()
 	return pMinElem;
 }
 template<typename K, typename V>
-inline int HeapPrioQueue<K, V>::insert(T_Entry<K, V>& elem)
+inline T_Entry<K, V>* HeapPrioQueue<K, V>::insert(T_Entry<K, V>& elem)
 {
 	int index, ParentIndex;
 	T_Entry<K, V> temp;
@@ -72,11 +74,13 @@ inline int HeapPrioQueue<K, V>::insert(T_Entry<K, V>& elem)
 	if (isFull())
 	{
 		cout << "Error! Queue is Full !!" << endl;
-		return size();
+		return NULL;
 	}
+	cs_priQ.lock();
 	// 큐에 넣고 그 인덱스 값을 반환받음 ( 정렬을 하기 위해 쓰임 ) 
 	index = this->add_at_end(elem);
 
+	// up-heap bubbling
 	while (index != CBT_ROOT)
 	{
 		ParentIndex = this->parentIndex(index);		// 마지막 인덱스의 부모 노드
@@ -91,7 +95,9 @@ inline int HeapPrioQueue<K, V>::insert(T_Entry<K, V>& elem)
 			index = ParentIndex;
 		}
 	}
-	return size();
+	cs_priQ.unlock();
+	T_Entry<K, V>* pRoot = &(this->t_GA[CBT_ROOT]);
+	return pRoot;
 }
 template<typename K, typename V>
 inline T_Entry<K, V>* HeapPrioQueue<K, V>::removeHeapMin()
@@ -105,6 +111,7 @@ inline T_Entry<K, V>* HeapPrioQueue<K, V>::removeHeapMin()
 	if (HPQ_Size <= 0)
 		return NULL;
 
+	cs_priQ.lock();
 	pMinElem = (T_Entry<K, V>*) new T_Entry<K, V>;
 	// ROOT 노드의 것을 꺼내고 삭제함
 	*pMinElem = this->RootElement();
@@ -120,6 +127,7 @@ inline T_Entry<K, V>* HeapPrioQueue<K, V>::removeHeapMin()
 		this->t_GA[CBT_ROOT] = this->t_GA[this->end];
 		this->end--;
 
+		// down-heap bubbling
 		while (this->hasLeftChild(index_p))
 		{
 			// c = 왼쪽 자식, rc = 오른쪽 자식
@@ -142,7 +150,7 @@ inline T_Entry<K, V>* HeapPrioQueue<K, V>::removeHeapMin()
 				break;
 		} // end while
 	}
-
+	cs_priQ.unlock();
 	return pMinElem;
 }
 template<typename K, typename V>
