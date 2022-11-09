@@ -35,13 +35,19 @@ void EventProc(ThrdParam* pParam)					// 이벤트 프로세싱 쓰레드 함수
 	{
 		// 만약 쓰레드 상태가 TERMINATED라면 이 반복문을 탈출
 		if (*pThrdMon->pFlagThreadTerminated == TERMINATE)
+		{
+			// TERMINATE 상태라면 모든 쓰레드에 걸린 mutex를 전부 언락시킨후 반복문을 탈출한다.
 			break;
+		}
 
 		if (!(pPriQ_Ev->isEmpty()))
 		{
+			//pParam->pCS_main->lock();
 			pEntry = pPriQ_Ev->removeHeapMin();
+			//pParam->pCS_main->unlock();
+
 			ev = pEntry->Val();
-			
+
 			pParam->pCS_thrd_mon->lock();
 			ev.SetEvHanAddr(myAddr);
 
