@@ -33,7 +33,7 @@ typedef struct _ThreadParameter_Event
 {
 	mutex* pCS_main;				// main에서 쓰는 mutex
 	mutex* pCS_thrd_mon;			// thread Monitor에서 쓰는 mutex
-	HeapPrioQueue<int, Event>* pPriQ_Event;		// Heap Queue의 주소
+	HeapPrioQ_CS<int, Event>* pPriQ_Event;		// Heap Queue의 주소
 	FILE* fout;						// 출력하는 파일 포인터
 	ROLE role;						// 이벤트 처리자의 역할
 	int myAddr;						// 주소
