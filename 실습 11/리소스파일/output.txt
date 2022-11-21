@@ -1,0 +1,67 @@
+Inserting My Vocabularies to MyVocaDict . . . 
+Total 13 words in my Voca_Dictionary .. 
+
+delegate(v):
+ - thesaurus(authorize, appoint, designate, )
+ - example usage( )
+
+delegate(n):
+ - thesaurus(representative, agent, substitute, )
+ - example usage( )
+
+compromise(v):
+ - thesaurus(settle, conciliate, find a middle ground, )
+ - example usage(He does not like sweet dishes so I compromised by adding just a small amount of sugar. )
+
+compromise(n):
+ - thesaurus(give-and-take, bargaining, accommodation, )
+ - example usage(The couple made a compromise and ordered food to take out. )
+
+foster(adj):
+ - thesaurus(substitute, adoptive, stand-in, )
+ - example usage( )
+
+foster(v):
+ - thesaurus(nurture, raise, promote, advance, )
+ - example usage( )
+
+mean(v):
+ - thesaurus(require, denote, intend, )
+ - example usage(What do you mean by "perfect" ? )
+
+mean(adj):
+ - thesaurus(nasty, poor, middle, miserly, paltry, )
+ - example usage(a man of mean intelligence a mean appearance )
+
+mean(n):
+ - thesaurus(average, norm, median, middle, midpoint, (ant) extremity, )
+ - example usage(the mean error the golden mean the arithmetical mean the geometric mean )
+
+imperative(n):
+ - thesaurus(necessity, essential, requirement, )
+ - example usage( )
+
+imperative(adj):
+ - thesaurus(authoritative, vital, )
+ - example usage( )
+
+offer(v):
+ - thesaurus(to propose, )
+ - example usage(She must offer her banker new statistics in order to satisfy the bank's requirement for the loan. )
+
+offer(n):
+ - thesaurus(proposal, )
+ - example usage(He accepted out offer to write the business plan. )
+
+
+
+Thesaurus of [offer]:
+offer(v):
+ - thesaurus(to propose, )
+ - example usage(She must offer her banker new statistics in order to satisfy the bank's requirement for the loan. )
+
+offer(n):
+ - thesaurus(proposal, )
+ - example usage(He accepted out offer to write the business plan. )
+
+
