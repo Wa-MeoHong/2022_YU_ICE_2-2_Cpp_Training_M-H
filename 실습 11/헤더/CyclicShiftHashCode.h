@@ -17,7 +17,7 @@ public:
 		unsigned int h = 0;
 		for (int i = 0; i < len; i++)
 		{
-			h = (h << BIT_SHIFTS) | (BITS_INT - BIT_SHIFTS);
+			h = (h << BIT_SHIFTS) | (h >> (BITS_INT - BIT_SHIFTS));
 			h += (unsigned int)key.at(i);
 		}
 
