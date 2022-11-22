@@ -32,17 +32,17 @@ public:
 	// getter
 	int size() const { return num_entry; }
 	string Name() const { return name; }
-	Iterator begin();								// IteratorÀÇ Ã³À½ ¹İÈ¯
-	Iterator end() { return Iterator(this->B, this->B.end()); };		// IteratorÀÇ ³¡ ¹İÈ¯
+	Iterator begin();								// Iteratorì˜ ì²˜ìŒ ë°˜í™˜
+	Iterator end() { return Iterator(this->B, this->B.end()); };		// Iteratorì˜ ë ë°˜í™˜
 
 	// member function (interfaces)
 	bool Empty() const { return (num_entry == 0); }
-	Iterator find(const K& k);						// Key¸¦ ÅëÇØ ¿£Æ®¸® °ªÀ» Ã£´Â´Ù
-	Iterator insert(const K& k, const V& v);		// ¿£Æ®¸®¿¡ Å°¿Í °ªÀ» ³Ö´Â´Ù
-	void Erase(const K& k);							// KÀÇ °ªÀ» ÀÌ¿ëÇØ ¿£Æ®¸® »èÁ¦ ( IteratorÀÇ °Í°ú ¿À¹ö·Îµù Áß)
-	void Erase(const Iterator& p);					// Iterator p¸¦ ÀÌ¿ëÇØ ¿£Æ®¸® »èÁ¦ ( keyÀÇ °Í°ú ¿À¹ö·Îµù Áß)
+	Iterator find(const K& k);						// Keyë¥¼ í†µí•´ ì—”íŠ¸ë¦¬ ê°’ì„ ì°¾ëŠ”ë‹¤
+	Iterator insert(const K& k, const V& v);		// ì—”íŠ¸ë¦¬ì— í‚¤ì™€ ê°’ì„ ë„£ëŠ”ë‹¤
+	void Erase(const K& k);							// Kì˜ ê°’ì„ ì´ìš©í•´ ì—”íŠ¸ë¦¬ ì‚­ì œ ( Iteratorì˜ ê²ƒê³¼ ì˜¤ë²„ë¡œë”© ì¤‘)
+	void Erase(const Iterator& p);					// Iterator pë¥¼ ì´ìš©í•´ ì—”íŠ¸ë¦¬ ì‚­ì œ ( keyì˜ ê²ƒê³¼ ì˜¤ë²„ë¡œë”© ì¤‘)
 	void fprintBucketSizes(ostream& ostr);			// printout bucket sizes
-	void fprintBucket(ostream& ostr, BItor bkt);		// ¹öÅ¶ Ãâ·Â
+	void fprintBucket(ostream& ostr, BItor bkt);		// ë²„í‚· ì¶œë ¥
  
 protected:
 	Iterator _find(const K& k);								// find utility
@@ -70,11 +70,11 @@ public:
 		// getter
 		V Value() { Entry& e = *ent; return e.Val(); }
 
-		// operator overloading (¹İº¹ÀÚ·Î½á ±â´ÉÇÏ±â À§ÇÑ ÇÊ¼ö ¿À¹ö·Îµù)
+		// operator overloading (ë°˜ë³µìë¡œì¨ ê¸°ëŠ¥í•˜ê¸° ìœ„í•œ í•„ìˆ˜ ì˜¤ë²„ë¡œë”©)
 		Entry& operator*() const { return *ent; }
-		bool operator==(const Iterator& p) const;		// Iterator°¡ °°ÀºÁö
-		bool operator!=(const Iterator& p) const;		// Iterator°¡ ÀÏÄ¡ÇÏÁö ¾Ê´ÂÁö
-		Iterator& operator++();				//	´ÙÀ½ ¿£Æ®¸®·Î ³Ñ¾î°¡±âÀ§ÇÔ
+		bool operator==(const Iterator& p) const;		// Iteratorê°€ ê°™ì€ì§€
+		bool operator!=(const Iterator& p) const;		// Iteratorê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ”ì§€
+		Iterator& operator++();				//	ë‹¤ìŒ ì—”íŠ¸ë¦¬ë¡œ ë„˜ì–´ê°€ê¸°ìœ„í•¨
 		Iterator& advanceEltor() { ++ent; return *this; }
 		friend class HashMap;			// give HashMap access
 
@@ -89,10 +89,10 @@ template<typename K, typename V>
 inline typename HashMap<K, V>::Iterator HashMap<K, V>::begin()
 {
 	if (this->Empty())
-		return end();						// if ºñ¾îÀÖÀ¸¸é end ¹İÈ¯
-	BItor bkt = this->B.begin();			// ¾Æ´Ï¸é, ¿£Æ®¸®¸¦ Ã£´Â´Ù
-	while (bkt->empty())					// ºñ¾îÀÖ´Ù°í ¸»ÇÏ±â Àü±îÁö
-		++bkt;								// ¹öÅ¶ÀÇ Ã¹¹øÂ°¸¦ Ã£´Â´Ù.
+		return end();						// if ë¹„ì–´ìˆìœ¼ë©´ end ë°˜í™˜
+	BItor bkt = this->B.begin();			// ì•„ë‹ˆë©´, ì—”íŠ¸ë¦¬ë¥¼ ì°¾ëŠ”ë‹¤
+	while (bkt->empty())					// ë¹„ì–´ìˆë‹¤ê³  ë§í•˜ê¸° ì „ê¹Œì§€
+		++bkt;								// ë²„í‚·ì˜ ì²«ë²ˆì§¸ë¥¼ ì°¾ëŠ”ë‹¤.
 
 	return Iterator(this->B, bkt, bkt->begin());
 }
@@ -102,33 +102,33 @@ inline typename HashMap<K, V>::Iterator HashMap<K, V>::begin()
 template<typename K, typename V>
 inline typename HashMap<K, V>::Iterator HashMap<K, V>::find(const K& k)
 {
-	Iterator p = _find(k);				// Å°ÀÇ °ªÀ» Ã£¾Æ¼­ ¹İÈ¯¹ŞÀ½
-	if (_endOfBkt(p))					// ¸¸¾à Å°ÀÇ °ªÀ» ÅëÇØ Ã£Áö ¸øÇØ¼­ end¿¡ °¡ÀÖ´Ù¸é
-		return end();					// end¸¦ ¹İÈ¯
+	Iterator p = _find(k);				// í‚¤ì˜ ê°’ì„ ì°¾ì•„ì„œ ë°˜í™˜ë°›ìŒ
+	if (_endOfBkt(p))					// ë§Œì•½ í‚¤ì˜ ê°’ì„ í†µí•´ ì°¾ì§€ ëª»í•´ì„œ endì— ê°€ìˆë‹¤ë©´
+		return end();					// endë¥¼ ë°˜í™˜
 	else
-		return p;						// ¾Æ´Ï¸é ¹İÈ¯¹ŞÀº °ª ¹İÈ¯
+		return p;						// ì•„ë‹ˆë©´ ë°˜í™˜ë°›ì€ ê°’ ë°˜í™˜
 }
 template<typename K, typename V>
 inline typename HashMap<K, V>::Iterator HashMap<K, V>::insert(const K& k, const V& v)
 {
 	Iterator p = _find(k);
 
-	if (_endOfBkt(p))			// kÀÇ °ªÀ» °¡Áø Å°¸¦ Ã£Áö ¸øÇßÀ¸¸é, 
+	if (_endOfBkt(p))			// kì˜ ê°’ì„ ê°€ì§„ í‚¤ë¥¼ ì°¾ì§€ ëª»í–ˆìœ¼ë©´, 
 	{
-		return _insert(p, Entry(k, v));		// insertÇÔ¼ö¸¦ ½ÇÇàÇØ °ªÀ» Áı¾î³Ö´Â´Ù. 
+		return _insert(p, Entry(k, v));		// insertí•¨ìˆ˜ë¥¼ ì‹¤í–‰í•´ ê°’ì„ ì§‘ì–´ë„£ëŠ”ë‹¤. 
 	}
 	else
 	{
-		p.ent->setValue(v);				// Å°¸¦ Ã£¾Ò´Ù¸é EntryÀÇ Å° °ªÀ» ÀÌ°É·Î º¯°æÇÑ ÈÄ, ¹İÈ¯
+		p.ent->setValue(v);				// í‚¤ë¥¼ ì°¾ì•˜ë‹¤ë©´ Entryì˜ í‚¤ ê°’ì„ ì´ê±¸ë¡œ ë³€ê²½í•œ í›„, ë°˜í™˜
 		return p;
 	}
 }
 template<typename K, typename V>
 inline void HashMap<K, V>::Erase(const K& k)
 {
-	Iterator p = _find(k);				// Å°ÀÇ °ªÀ» Ã£À½
+	Iterator p = _find(k);				// í‚¤ì˜ ê°’ì„ ì°¾ìŒ
 	if (_endOfBkt(p))
-		throw "Erase of nonexistent";	// Error ¹İÈ¯
+		throw "Erase of nonexistent";	// Error ë°˜í™˜
 	_erase(p);							// erase
 }
 template<typename K, typename V>
@@ -139,9 +139,9 @@ inline void HashMap<K, V>::Erase(const Iterator& p)
 template<typename K, typename V>
 inline void HashMap<K, V>::fprintBucket(ostream& ostr, BItor bkt)
 {
-	Iterator p(B, bkt, bkt->begin());			// ¹İº¹ÀÚ »ı¼º
-	MyVoca* pVoca = NULL;						// Voca Æ÷ÀÎÅÍ 
-	while (p.ent != bkt->end())					// p.ent°¡ bktÀÇ ³¡¿¡ µµ´ŞÇÒ ¶§±îÁö
+	Iterator p(B, bkt, bkt->begin());			// ë°˜ë³µì ìƒì„±
+	MyVoca* pVoca = NULL;						// Voca í¬ì¸í„° 
+	while (p.ent != bkt->end())					// p.entê°€ bktì˜ ëì— ë„ë‹¬í•  ë•Œê¹Œì§€
 	{
 		pVoca = p.Value();
 		ostr << *pVoca << endl;
@@ -158,17 +158,17 @@ inline void HashMap<K, V>::fprintBucketSizes(ostream& ostr)
 	max_ent = min_ent = B[0].size();
 	num_bkts = B.size();
 
-	// ÃÖ´ë°ª, ÃÖ¼Ò°ª, Æò±ÕÀ» ±¸ÇÔ. 
+	// ìµœëŒ€ê°’, ìµœì†Œê°’, í‰ê· ì„ êµ¬í•¨. 
 	for (int bkt = 0; bkt < num_bkts; bkt++)
 	{
 		bkt_size = B[bkt].size();
 		ostr << "Buktet[" << setw(3) << bkt << "] : " << bkt_size << "entries" << endl;
 		if (bkt_size > max_ent)
 		{
-			max_ent = bkt_size;			// ÃÖ´ë ¿£Æ®¸® »çÀÌÁî °»½Å
+			max_ent = bkt_size;			// ìµœëŒ€ ì—”íŠ¸ë¦¬ ì‚¬ì´ì¦ˆ ê°±ì‹ 
 			max_bkt = bkt;
 		}
-		if (bkt_size < min_ent)			// ÃÖ¼Ò ¿£Æ®¸® »çÀÌÁî °»½Å
+		if (bkt_size < min_ent)			// ìµœì†Œ ì—”íŠ¸ë¦¬ ì‚¬ì´ì¦ˆ ê°±ì‹ 
 		{
 			min_ent = bkt_size;
 		}
@@ -177,14 +177,14 @@ inline void HashMap<K, V>::fprintBucketSizes(ostream& ostr)
 	}
 	avg = (double)total / (double)num_bkts;
 
-	// Ãâ·Â
+	// ì¶œë ¥
 	ostr.precision(2);
 	ostr << "\nMax_ent (" << setw(2) << max_ent << "), min_ent (" << setw(2) << min_ent 
 		<< "), avg (" << setw(5) << avg << ")\n " << endl;
 	
 	ostr << "Bucket with maximum (" << max_ent << ") entries : " << endl;
-	BItor bkt = B.begin() + max_bkt;		// ¹öÅ¶ÀÌ °¡Àå ¸¹Àº ÇØ½ÃÀÇ ¹öÅ¶À¸·Î ÇâÇÔ
-	fprintBucket(ostr, bkt);				// ¹öÅ¶ Ãâ·Â
+	BItor bkt = B.begin() + max_bkt;		// ë²„í‚·ì´ ê°€ì¥ ë§ì€ í•´ì‹œì˜ ë²„í‚·ìœ¼ë¡œ í–¥í•¨
+	fprintBucket(ostr, bkt);				// ë²„í‚· ì¶œë ¥
 
 
 }
@@ -195,26 +195,26 @@ template<typename K, typename V>
 inline typename HashMap<K, V>::Iterator HashMap<K, V>::_find(const K& k)
 {
 	CyclicShiftHashCode hash;
-	int i = hash(k) % this->B.size();			// CyclicShiftHashCode¸¦ »ç¿ëÇØ hashÀÇ Value¸¦ °è»êÇÔ
-	BItor bkt = this->B.begin() + i;			// ¹öÅ¶ÀÇ ½ÃÀÛ¿¡¼­ºÎÅÍ i¹øÂ°¿¡ ÀÖ´Â °ª
+	int i = hash(k) % this->B.size();			// CyclicShiftHashCodeë¥¼ ì‚¬ìš©í•´ hashì˜ Valueë¥¼ ê³„ì‚°í•¨
+	BItor bkt = this->B.begin() + i;			// ë²„í‚·ì˜ ì‹œì‘ì—ì„œë¶€í„° ië²ˆì§¸ì— ìˆëŠ” ê°’
 
 	Iterator p(this->B, bkt, bkt->begin());
-	while (!_endOfBkt(p) && (*p).Key() != k)		// ¹öÅ¶ÀÇ Å°°¡ ³¡¿¡  µµ´ŞÇÏ°Å³ª, k¸¦ Ã£Áö ¸øÇÒ ¶§±îÁö
+	while (!_endOfBkt(p) && (*p).Key() != k)		// ë²„í‚·ì˜ í‚¤ê°€ ëì—  ë„ë‹¬í•˜ê±°ë‚˜, kë¥¼ ì°¾ì§€ ëª»í•  ë•Œê¹Œì§€
 		++p.ent;
-	return p;									// pÀÇ °ª ¹İÈ¯
+	return p;									// pì˜ ê°’ ë°˜í™˜
 }
 template<typename K, typename V>
 inline typename HashMap<K, V>::Iterator HashMap<K, V>::_insert(const Iterator& p, const Entry& e)
 {
-	EItor ins = p.bkt->insert(p.ent, e);			// listÀÇ ¹İº¹ÀÚÀÇ insert¸¦ »ç¿ëÇÔ
+	EItor ins = p.bkt->insert(p.ent, e);			// listì˜ ë°˜ë³µìì˜ insertë¥¼ ì‚¬ìš©í•¨
 	this->num_entry++;
 	return  Iterator(this->B, p.bkt, ins);
 }
 template<typename K, typename V>
 inline void HashMap<K, V>::_erase(const Iterator& p)
 {
-	p.bkt->erase(p.ent);			// listÀÇ erase¸¦ »ç¿ë Áß
-	this->num_entry--;				// ¿£Æ®¸® °³¼ö¸¦ ÇÑ°³ ÁÙÀÓ
+	p.bkt->erase(p.ent);			// listì˜ eraseë¥¼ ì‚¬ìš© ì¤‘
+	this->num_entry--;				// ì—”íŠ¸ë¦¬ ê°œìˆ˜ë¥¼ í•œê°œ ì¤„ì„
 }
 
 
@@ -223,36 +223,36 @@ template<typename K, typename V>
 inline bool HashMap<K, V>::Iterator::operator==(const Iterator& p) const
 {
 	if (this->ba != p.ba || this->bkt != p.bkt)
-		return false;					// ¸¸¾à µÑÁß ÇÏ³ª¶óµµ °°Áö ¾Ê´Ù¸é false
+		return false;					// ë§Œì•½ ë‘˜ì¤‘ í•˜ë‚˜ë¼ë„ ê°™ì§€ ì•Šë‹¤ë©´ false
 	else if (this->bkt == this->ba->end())
-		return true;					// ¸¸¾à µÑ´Ù ³¡¿¡ °¡ÀÖ´Ù¸é
+		return true;					// ë§Œì•½ ë‘˜ë‹¤ ëì— ê°€ìˆë‹¤ë©´
 	else
-		return (this->ent == p.ent);		// µÑ´Ù ¾Æ´Ï¶ó¸é entry°¡ °°ÀºÁö ºñ±³ÇÑ °ªÀ» ¹İÈ¯
+		return (this->ent == p.ent);		// ë‘˜ë‹¤ ì•„ë‹ˆë¼ë©´ entryê°€ ê°™ì€ì§€ ë¹„êµí•œ ê°’ì„ ë°˜í™˜
 }
 template<typename K, typename V>
 inline bool HashMap<K, V>::Iterator::operator!=(const Iterator& p) const
 {
 	if (this->ba != p.ba || this->bkt != p.bkt)
-		return true;					// ¸¸¾à µÑÁß ÇÏ³ª¶óµµ °°Áö ¾Ê´Ù¸é true
+		return true;					// ë§Œì•½ ë‘˜ì¤‘ í•˜ë‚˜ë¼ë„ ê°™ì§€ ì•Šë‹¤ë©´ true
 	else if (this->bkt == this->ba->end())
-		return false;					// ¸¸¾à µÑ´Ù ³¡¿¡ °¡ÀÖ´Ù¸é
+		return false;					// ë§Œì•½ ë‘˜ë‹¤ ëì— ê°€ìˆë‹¤ë©´
 	else
-		return (this->ent != p.ent);		// µÑ´Ù ¾Æ´Ï¶ó¸é entry°¡ °°ÀºÁö ºñ±³ÇÑ °ªÀ» ¹İÈ¯
+		return (this->ent != p.ent);		// ë‘˜ë‹¤ ì•„ë‹ˆë¼ë©´ entryê°€ ê°™ì€ì§€ ë¹„êµí•œ ê°’ì„ ë°˜í™˜
 }
 template<typename K, typename V>
 inline typename HashMap<K, V>::Iterator& HashMap<K, V>::Iterator::operator++()
 {
-	++(this->ent);
-	if (_endOfBkt(*this))
+	++(this->ent);						// ë¨¼ì € entë¥¼ ë‹¤ìŒ entryë¡œ ë³€ê²½í•œë‹¤.
+	if (_endOfBkt(*this))				// ë§Œì•½ ì§€ê¸ˆ í˜„ì¬ ë²„í‚· ë‚´ë¶€ì—ì„œ endê°€ ë‚¬ë‹¤ë©´( entê°€ end())
 	{
-		++bkt;
-		while ((this->bkt != this->ba->end()) && (this->bkt->empty()))
+		++bkt;							// BItor ì´ë™ ( vector Iterator )
+		while ((this->bkt != this->ba->end()) && (this->bkt->empty()))	// ë¹„ì–´ìˆì§€ ì•Šì€ bktì„ ì°¾ì„ë•Œê¹Œì§€ ì´ë™
 			++bkt;
-		if (this->bkt == this->ba->end())
+		if (this->bkt == this->ba->end())				// ë§Œì•½ bktì´ Hash Mapì˜ endì— ë„ë‹¬í–ˆë‹¤ë©´ ë°”ë¡œ ë°˜í™˜
 			return *this;
-		this->ent = this->bkt->begin();
+		this->ent = this->bkt->begin();					// ì•„ë‹ˆë¼ë©´, entì˜ ê°’ì„ bktì˜ begin()ê³¼ ì¼ì¹˜ì‹œí‚¨ë‹¤.
 	}
-	return *this;
+	return *this;						// ë°˜í™˜
 
 }
 
