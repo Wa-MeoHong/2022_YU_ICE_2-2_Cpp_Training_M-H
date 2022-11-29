@@ -11,7 +11,7 @@
 typedef list<MyVoca*> List_pVoca;
 typedef list<MyVoca*>::iterator List_pVoca_Iter;
 
-enum SearchMode { FULL_MATCH, PREFIX_MATCH };		// ¿ÏÀüÀÏÄ¡, ºÎºĞÀÏÄ¡
+enum SearchMode { FULL_MATCH, PREFIX_MATCH };		// ì™„ì „ì¼ì¹˜, ë¶€ë¶„ì¼ì¹˜
 
 template <typename E>
 class Trie
@@ -59,18 +59,18 @@ inline void Trie<E>::insert(string keystr, E value)
 	TrieNode<E>* pTN = NULL, * pTN_New = NULL;
 	char* keyPtr = (char*)keystr.c_str();
 
-	// 1. ¹ŞÀº Å°°¡ ¾ø´Ù¸é ¹Ù·Î Å»Ãâ
+	// 1. ë°›ì€ í‚¤ê°€ ì—†ë‹¤ë©´ ë°”ë¡œ íƒˆì¶œ
 	if (keyPtr == NULL)
 		return;
 
-	// 2. ¹ŞÀº Å°°¡ ÀÖÁö¸¸, ¿ÏÀüÀÏÄ¡ÇÏ´Â Å°¸¦ Ã£Áö ¸øÇÑ °æ¿ì
+	// 2. ë°›ì€ í‚¤ê°€ ìˆì§€ë§Œ, ì™„ì „ì¼ì¹˜í•˜ëŠ” í‚¤ë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš°
 	if (this->_find(keystr, FULL_MATCH) != NULL)
 	{
 		cout << "The given key string (" << keystr << ") is already existing; just return !!" << endl;
 		return;
 	}
 
-	// 3. root¸¦ ¹İÈ¯¹Ş°í positioning ÇÑ´Ù..
+	// 3. rootë¥¼ ë°˜í™˜ë°›ê³  positioning í•œë‹¤..
 	pTN = this->_root;
 	while ((pTN != NULL) && (*keyPtr != '\0'))
 	{
@@ -88,7 +88,7 @@ inline void Trie<E>::insert(string keystr, E value)
 			break;
 	}
 
-	// insert¸¦ ÁøÇàÇÔ
+	// insertë¥¼ ì§„í–‰í•¨
 	if ((pTN->Key() != '\0') && (*keyPtr == '\0'))
 	{
 		pTN_New = new TrieNode<E>('\0', value);
@@ -199,7 +199,7 @@ inline void Trie<E>::deleteKeyStr(string keystr)
 	_root = this->_root;
 	if (NULL == _root || keystr.empty())
 		return;
-	pTN = _find(keystr, FULL_MATCH);		// Å°°¡ Á¤È®È÷ ÀÏÄ¡ÇÏ´Â °ÍÀ» Ã£À½
+	pTN = _find(keystr, FULL_MATCH);		// í‚¤ê°€ ì •í™•íˆ ì¼ì¹˜í•˜ëŠ” ê²ƒì„ ì°¾ìŒ
 	if (pTN == NULL)
 	{
 		cout << "Key [" << keystr << "] not found in trie !" << endl;
@@ -207,36 +207,36 @@ inline void Trie<E>::deleteKeyStr(string keystr)
 	}
 	while (1)
 	{
-		// ¸¸¾à pTNÀÌ NULLÀÌ µÈ´Ù¸é Å»Ãâ
+		// ë§Œì•½ pTNì´ NULLì´ ëœë‹¤ë©´ íƒˆì¶œ
 		if (pTN == NULL)
 			break;
 		if (pTN->Prev() && pTN->Next())
 		{
 			tmp = pTN;
-			// ³ëµå Àç¿¬°á
+			// ë…¸ë“œ ì¬ì—°ê²°
 			(pTN->Next())->SetPrev(pTN->Prev());
 			(pTN->Prev())->SetNext(pTN->Next());
-			free(tmp);	// ³ëµå »èÁ¦
+			free(tmp);	// ë…¸ë“œ ì‚­ì œ
 			break;
 		}
 		else if (pTN->Prev() && !pTN->Next())
 		{
 			tmp = pTN;
-			// ³ëµå Àç¿¬°á
+			// ë…¸ë“œ ì¬ì—°ê²°
 			(pTN->Prev())->SetNext(NULL);	
-			free(tmp);	// ³ëµå »èÁ¦
+			free(tmp);	// ë…¸ë“œ ì‚­ì œ
 			break;
 		}
 		else if (!pTN->Prev() && pTN->Next())
 		{
 			tmp = pTN;
-			// ³ëµå Àç¿¬°á
+			// ë…¸ë“œ ì¬ì—°ê²°
 			(pTN->Prev())->SetNext(NULL);
-			free(tmp);	// ³ëµå »èÁ¦
+			free(tmp);	// ë…¸ë“œ ì‚­ì œ
 			break;
 		}
 		else
-		{	// ¸¸¾à ÀÌÀü, ÀÌÈÄ ³ëµå ¾Æ¹«°Íµµ ¾ø´Ù¸é
+		{	// ë§Œì•½ ì´ì „, ì´í›„ ë…¸ë“œ ì•„ë¬´ê²ƒë„ ì—†ë‹¤ë©´
 			tmp = pTN;
 			pTN = pTN->Parent();
 			if (pTN != NULL)
@@ -256,7 +256,7 @@ inline void Trie<E>::eraseTrie()
 	TrieNode<E>* pTN = NULL;
 	TrieNode<E>* pTN_to_be_deleted = NULL;
 
-	// ÀÌ¹Ì ·çÆ®³ëµå°¡ ¾ø´Ù¸é ¹Ù·Î ¸®ÅÏ
+	// ì´ë¯¸ ë£¨íŠ¸ë…¸ë“œê°€ ì—†ë‹¤ë©´ ë°”ë¡œ ë¦¬í„´
 	if (this->_root == NULL)
 		return;
 
@@ -325,7 +325,7 @@ inline void Trie<E>::fprintTrie(ostream& ostr)
 
 	ostr << "trie ( " << this->name() << ") with "
 		<< this->num_keys << " trie_nodes\n";
-	// ¸¸¾à ³ëµå°¡ ¾ø´Ù¸é ¹Ù·Î ¸®ÅÏ
+	// ë§Œì•½ ë…¸ë“œê°€ ì—†ë‹¤ë©´ ë°”ë¡œ ë¦¬í„´
 	if (this->num_keys == 0) {
 		ostr << "Empty trie !" << endl;
 		return;
@@ -406,7 +406,7 @@ inline void Trie<E>::_traverse(TrieNode<E>* pTN, List_pVoca& list_pVocas)
 	else
 		this->_traverse(pTN->Child(), list_pVocas);
 
-	if (pTN->Next() == NULL)
+	if (pTN->Next() != NULL)
 		this->_traverse(pTN->Next(), list_pVocas);
 }
 template<typename E>
